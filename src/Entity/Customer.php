@@ -27,14 +27,9 @@ class Customer implements UserInterface, \Serializable
      * @ORM\Column(name="surname", type="string", length=35, unique=true)
      */
     private $customerSurname;
-    
-    /**
-     * @ORM\Column(name="username", type="string", length=70, unique=true)
-     */
-    private $username;
 
     /**
-     * @ORM\Column(name="password", type="string", length=30)
+     * @ORM\Column(name="password", type="string", length=64)
      */
     private $password;
 
@@ -82,18 +77,6 @@ class Customer implements UserInterface, \Serializable
         return $this->customerSurname;
     }
     
-    public function getUsername()
-    {
-        if (!$this->customerName && !$this->customerSurname) {
-            
-            return false;
-        }
-        
-        $this->username = $this->customerName.$this->customerSurname;
-        
-        return $this;
-    }
-    
     public function setPassword($pass)
     {
         $this->password = $pass;
@@ -139,6 +122,11 @@ class Customer implements UserInterface, \Serializable
     {
         return array('ROLE_USER');
     }
+    
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
 
     public function eraseCredentials()
     {
@@ -149,7 +137,7 @@ class Customer implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->email,
             $this->password
         ));
     }
@@ -159,7 +147,7 @@ class Customer implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->username,
+            $this->email,
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
