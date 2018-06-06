@@ -27,6 +27,11 @@ class Customer implements UserInterface, \Serializable
      * @ORM\Column(name="surname", type="string", length=35, unique=true)
      */
     private $customerSurname;
+    
+    /**
+     * @ORM\Column(name="username", type="string", length=70, unique=true)
+     */
+    private $username;
 
     /**
      * @ORM\Column(name="password", type="string", length=30)
@@ -84,7 +89,9 @@ class Customer implements UserInterface, \Serializable
             return false;
         }
         
-        return $this->customerName.$this->customerSurname;
+        $this->username = $this->customerName.$this->customerSurname;
+        
+        return $this;
     }
     
     public function setPassword($pass)
