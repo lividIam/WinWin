@@ -9,16 +9,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends AbstractController {
     
+    public function registerCustomerAction() {
+        
+        return true;
+    }
+
     /**
-     * @Route("/login", name="login")
+     * @Route("/login", name="login_customer")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils)
+    public function loginCustomerAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
+        return $this->render('security/login_customer.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
         ));

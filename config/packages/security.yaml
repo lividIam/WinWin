@@ -23,7 +23,7 @@ security:
             anonymous: ~
             provider: customer_db_provider
             form_login:
-                login_path: login
+                login_path: login_customer
                 check_path: login
             logout:
                 path:   /logout
@@ -46,5 +46,6 @@ security:
     access_control:
 #         - { path: ^/admin, roles: ROLE_ADMIN, ip: 127.0.0.1 }
          - { path: ^/profile, roles: ROLE_USER }
+#         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
          - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
