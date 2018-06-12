@@ -23,6 +23,8 @@
     "require-dev": {
         "easycorp/easy-log-handler": "^1.0.2",
         "sensiolabs/security-checker": "^4.1",
+        "symfony/browser-kit": "^4.1",
+        "symfony/css-selector": "^4.1",
         "symfony/debug-bundle": "^3.3|^4.0",
         "symfony/dotenv": "^4.1",
         "symfony/maker-bundle": "^1.5",
