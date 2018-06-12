@@ -38,10 +38,15 @@ class Customer implements UserInterface, \Serializable
      */
     private $email;
     
-     /**
+    /**
      * @ORM\Column(name="phone_number", type="string", length=15, unique=true)
      */
     private $phoneNumber;
+    
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -50,6 +55,7 @@ class Customer implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->roles = array('ROLE_USER');
         $this->isActive = true;
     }
     
@@ -120,7 +126,7 @@ class Customer implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
     
     public function getUsername()

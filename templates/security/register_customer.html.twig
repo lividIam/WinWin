@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    
+    <h1>Register Page</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.customerName) }}
+        {{ form_row(form.customerSurname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.phoneNumber) }}
+        {{ form_row(form.password) }}
+    {{ form_end(form) }}
+
+{% endblock %}
