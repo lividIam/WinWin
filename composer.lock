@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "546477c7e989c8b748b30201fe34a72e",
-    "content-hash": "47962e5a2af5c891319ea2a63b10bbed",
+    "hash": "f530123be58194ec53c9f540745713c3",
+    "content-hash": "98352cd50439abfefaf4c02e82fa186d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4376,6 +4376,72 @@
                 "logging"
             ],
             "time": "2018-03-05 14:51:36"
+        },
+        {
+            "name": "symfony/phpunit-bridge",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/phpunit-bridge.git",
+                "reference": "b3451fc442baaf9169e50491a059ef17582c4424"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b3451fc442baaf9169e50491a059ef17582c4424",
+                "reference": "b3451fc442baaf9169e50491a059ef17582c4424",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
+            },
+            "suggest": {
+                "ext-zip": "Zip support is required when using bin/simple-phpunit",
+                "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+            },
+            "bin": [
+                "bin/simple-phpunit"
+            ],
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                },
+                "thanks": {
+                    "name": "phpunit/phpunit",
+                    "url": "https://github.com/sebastianbergmann/phpunit"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Bridge\\PhpUnit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PHPUnit Bridge",
+            "homepage": "https://symfony.com",
+            "time": "2018-05-25 14:55:38"
         },
         {
             "name": "symfony/polyfill-php72",
