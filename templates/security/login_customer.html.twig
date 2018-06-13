@@ -4,17 +4,13 @@
     
     <h1>Login Page</h1>
 
-{% if error is defined %}
+{% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
 <form action="{{ path('login_customer') }}" method="post">
     <label for="username">Email:</label>
-    {% if last_username is defined %}
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-    {% else %}
-        <input type="text" id="username" name="_username" />
-    {% endif %}
+    <input type="text" id="username" name="_username" value="{{ last_username }}" />
     
     <label for="password">Password:</label>
     <input type="password" id="password" name="_password" />
