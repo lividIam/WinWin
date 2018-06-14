@@ -1,5 +1,17 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    <h1>Homepage</h1>
     <button type="button" class="btn btn-danger">push-me-hard</button>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/manifest.js') }}"></script>
+    <script src="{{ asset('build/vendor.js') }}"></script>
+    
+    {# common scripts and css #}
+    <script src="{{ asset('build/app.js') }}"></script>
+    
+    {# page specific scripts #}
+    <script src="{{ asset('build/homepage.js') }}"></script>
 {% endblock %}

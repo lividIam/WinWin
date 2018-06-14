@@ -10,7 +10,16 @@ Encore
     
     // will create public/build/app.js and public/build/app.css
      .addEntry('app', './assets/js/app.js')
+     .addEntry('homepage', './assets/js/homepage.js')
+     .addEntry('register', './assets/js/register.js')
+     .addEntry('login', './assets/js/login.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
+    
+    .createSharedEntry('vendor', [
+        'jquery',
+        'bootstrap',
+        'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
+    ])
     
     // uncomment for legacy applications that require $/jQuery as a global variable
     .autoProvidejQuery()
