@@ -1,6 +1,6 @@
 #security:
 #    encoders:
-#        App\Entity\Customer:
+#        App\Entity\User:
 #            algorithm: bcrypt
 #            
 #    role_hierarchy:
@@ -9,9 +9,9 @@
 #        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 #            
 #    providers:
-#        customer_db_provider:
+#        user_db_provider:
 #            entity:
-#                class: App\Entity\Customer
+#                class: App\Entity\User
 #                property: email
 #                
 #    firewalls:
@@ -23,7 +23,7 @@
 #        main:
 #            pattern: /
 #            anonymous: ~
-#            provider: customer_db_provider
+#            provider: user_db_provider
 #            form_login:
 #                login_path: ^/login$
 #                check_path: ^/login_check$
@@ -48,7 +48,7 @@
 security:          
     encoders:
 #        AppBundle\Entity\Admin: bcrypt
-        App\Entity\Customer:  bcrypt
+        App\Entity\User:  bcrypt
             
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -61,8 +61,8 @@ security:
 #                providers: [admin, user]
 #        admin:
 #            entity: { class: AppBundle:Admin, property: username }
-        customer:
-            entity: { class: App:Customer, property: email }
+        user:
+            entity: { class: App:User, property: email }
 
     firewalls:
         dev:
@@ -82,10 +82,10 @@ security:
 #                path:   /logout
 #                target: / 
             
-        customer_secured_area:
+        user_secured_area:
             pattern:   ^/
             anonymous: ~
-            provider: customer
+            provider: user
             form_login:
                 login_path: /login
                 check_path: /login

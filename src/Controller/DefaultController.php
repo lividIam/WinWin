@@ -20,6 +20,6 @@ class DefaultController extends AbstractController {
      */
     public function profile()
     {
-        return $this->render('customer/profile.html.twig', array());
+        return $this->render('user/profile.html.twig', array());
     }
 }

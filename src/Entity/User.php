@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="customer")
- * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ * @ORM\Table(name="`user`")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class Customer implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -21,12 +21,12 @@ class Customer implements UserInterface, \Serializable
     /**
      * @ORM\Column(name="name", type="string", length=35, unique=true)
      */
-    private $customerName;
+    private $name;
     
     /**
      * @ORM\Column(name="surname", type="string", length=35, unique=true)
      */
-    private $customerSurname;
+    private $surname;
 
     /**
      * @ORM\Column(name="password", type="string", length=64)
@@ -59,28 +59,28 @@ class Customer implements UserInterface, \Serializable
         $this->isActive = true;
     }
     
-    public function setCustomerName($customerName)
+    public function setName($name)
     {
-        $this->customerName = $customerName;
+        $this->name = $name;
         
         return $this;
     }
 
-    public function getCustomerName()
+    public function getName()
     {
-        return $this->customerName;
+        return $this->name;
     }
     
-    public function setCustomerSurname($customerSurname)
+    public function setSurname($surname)
     {
-        $this->customerSurname = $customerSurname;
+        $this->surname = $surname;
         
         return $this;
     }
 
-    public function getCustomerSurname()
+    public function getSurname()
     {
-        return $this->customerSurname;
+        return $this->surname;
     }
     
     public function setPassword($pass)

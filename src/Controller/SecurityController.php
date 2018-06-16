@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Customer;
-use App\Form\CustomerType;
+use App\Entity\User;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,44 +14,44 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController {
     
     /**
-     * @Route("/register", name="register_customer")
+     * @Route("/register", name="register_user")
      * @Method({"GET", "POST"})
      */
-    public function registerCustomerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+    public function registerUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
         
-        $customer = new Customer();
+        $user = new User();
         
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(UserType::class, $user);
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $password = $passwordEncoder->encodePassword($customer, $customer->getPassword());
-            $customer->setPassword($password);
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
             
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($customer);
+            $entityManager->persist($user);
             $entityManager->flush();
             
-            return $this->render('security/login_customer.html.twig', []);
+            return $this->render('security/login_user.html.twig', []);
         }
         
-        return $this->render('security/register_customer.html.twig', [
+        return $this->render('security/register_user.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/login", name="login_customer")
+     * @Route("/login", name="login_user")
      */
-    public function loginCustomerAction(Request $request, AuthenticationUtils $authenticationUtils)
+    public function loginUserAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login_customer.html.twig', [
+        return $this->render('security/login_user.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
         ]);

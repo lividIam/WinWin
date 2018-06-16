@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Customer;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,15 +18,15 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager) {
         
-        $customer = new Customer();
-        $customer->setCustomerName('Mariano');
-        $customer->setCustomerSurname('Italiano');
-        $customer->setEmail('mariano.italiano@gmail.com');
-        $customer->setPhoneNumber('111222333');
-        $password = $this->encoder->encodePassword($customer, 'lalalalala');
-        $customer->setPassword($password);
+        $user = new User();
+        $user->setName('Mariano');
+        $user->setSurname('Italiano');
+        $user->setEmail('mariano.italiano@gmail.com');
+        $user->setPhoneNumber('111222333');
+        $password = $this->encoder->encodePassword($user, 'lalalalala');
+        $user->setPassword($password);
 
-        $manager->persist($customer);
+        $manager->persist($user);
         $manager->flush();
     }
 }
