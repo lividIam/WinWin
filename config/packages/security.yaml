@@ -29,7 +29,7 @@ security:
             form_login:
                 login_path: /admin/login
                 check_path: /admin/login
-                default_target_path: /users
+                default_target_path: /admin/users
             logout:
                 path:   /logout
                 target: /
