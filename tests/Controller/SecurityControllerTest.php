@@ -53,7 +53,6 @@ class SecurityControllerTest extends WebTestCase
             'user[name]'                => 'Dawid',
             'user[surname]'             => 'Podsiadlo',
             'user[email]'               => 'dawid.podsiadlo@gmail.com',
-            'user[phoneNumber]'         => '113653623',
             'user[password][first]'     => 'lalalalala',
             'user[password][second]'    => 'lalalalala'
         ]);

@@ -39,11 +39,6 @@ class User implements UserInterface, \Serializable
     private $email;
     
     /**
-     * @ORM\Column(name="phone_number", type="string", length=15, unique=true)
-     */
-    private $phoneNumber;
-    
-    /**
      * @ORM\Column(type="array")
      */
     private $roles;
@@ -116,18 +111,6 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
-    }
-    
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-        
-        return $this;
-    }
-
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
     }
 
     public function getSalt()

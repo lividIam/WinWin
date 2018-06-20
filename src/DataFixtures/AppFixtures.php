@@ -24,7 +24,6 @@ class AppFixtures extends Fixture
         $user->setName('Mariano');
         $user->setSurname('Italiano');
         $user->setEmail('mariano.italiano@gmail.com');
-        $user->setPhoneNumber('111222333');
         $userPassword = $this->encoder->encodePassword($user, 'lalalalala');
         $user->setPassword($userPassword);
         
