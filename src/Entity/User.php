@@ -52,11 +52,17 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Store", mappedBy="owner", cascade={"persist"})
+     */
+    private $stores;
 
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
         $this->isActive = true;
+        $this->stores = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getId()
@@ -161,5 +167,29 @@ class User implements UserInterface, \Serializable
             $this->email,
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+    
+    /**
+     * Add store to user collection
+     * 
+     * @param \App\Entity\Store $store
+     * @return \App\Entity\User
+     */
+    public function setStore(\App\Entity\Store $store)
+    {
+        $store->setOwner($this);
+        $this->stores[] = $store;
+        
+        return $this;
+    }
+    
+    /**
+     * Get stores
+     * 
+     * @return \App\Entity\Store
+     */
+    public function getStores()
+    {        
+        return $this->stores;
     }
 }
