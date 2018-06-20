@@ -1,53 +1,6 @@
-#security:
-#    encoders:
-#        App\Entity\User:
-#            algorithm: bcrypt
-#            
-#    role_hierarchy:
-#        ROLE_USER:        ROLE_USER
-#        ROLE_ADMIN:       [ROLE_USER, ROLE_ADMIN]
-#        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-#            
-#    providers:
-#        user_db_provider:
-#            entity:
-#                class: App\Entity\User
-#                property: email
-#                
-#    firewalls:
-#        dev:
-#            pattern: ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-#            context: my_context
-#            
-#        main:
-#            pattern: /
-#            anonymous: ~
-#            provider: user_db_provider
-#            form_login:
-#                login_path: ^/login$
-#                check_path: ^/login_check$
-#            logout:
-#                path:   /logout
-#                target: /
-#            context: my_context
-#
-#
-#    # Easy way to control access for large sections of your site
-#    # Note: Only the *first* access control that matches will be used
-#    access_control:
-#         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-##         - { path: ^/admin, roles: ROLE_ADMIN, ip: 127.0.0.1 }
-#         - { path: ^/profile, roles: ROLE_USER }
-##         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
-#         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#         
-#         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-
 security:          
     encoders:
-#        AppBundle\Entity\Admin: bcrypt
+        App\Entity\Admin: bcrypt
         App\Entity\User:  bcrypt
             
     role_hierarchy:
@@ -55,12 +8,11 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN]
         
     providers:
-#        a to??
-#        chain_provider:
-#            chain:
-#                providers: [admin, user]
-#        admin:
-#            entity: { class: AppBundle:Admin, property: username }
+        chain_provider:
+            chain:
+                providers: [admin, user]
+        admin:
+            entity: { class: App:Admin, property: email }
         user:
             entity: { class: App:User, property: email }
 
@@ -70,17 +22,18 @@ security:
             security: false
             context: my_context
           
-#        admin_secured_area:
-#            pattern:   ^/admin
-#            anonymous: ~
-#            provider: admin
-#            form_login:
-#                login_path: /admin/login
-#                check_path: /admin/login
-#                default_target_path: /customers
-#            logout:
-#                path:   /logout
-#                target: / 
+        admin_secured_area:
+            pattern:   ^/admin
+            anonymous: ~
+            provider: admin
+            form_login:
+                login_path: /admin/login
+                check_path: /admin/login
+                default_target_path: /users
+            logout:
+                path:   /logout
+                target: /
+            context: my_context
             
         user_secured_area:
             pattern:   ^/
@@ -96,8 +49,8 @@ security:
             context: my_context
     
     access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY,  ip: 127.0.0.1 }
+        - { path: ^/admin/users, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        
-
