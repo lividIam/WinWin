@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="`user`")
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="`admin`")
+ * @ORM\Entity(repositoryClass="App\Repository\AdminRepository")
  */
-class User implements UserInterface, \Serializable
+class Admin implements UserInterface, \Serializable 
 {
     /**
      * @ORM\Column(type="integer")
@@ -17,31 +17,16 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\Column(name="name", type="string", length=35, unique=true)
-     */
-    private $name;
     
-    /**
-     * @ORM\Column(name="surname", type="string", length=35, unique=true)
-     */
-    private $surname;
-
-    /**
-     * @ORM\Column(name="password", type="string", length=64)
-     */
-    private $password;
-
     /**
      * @ORM\Column(name="email", type="string", length=30, unique=true)
      */
     private $email;
     
     /**
-     * @ORM\Column(name="phone_number", type="string", length=15, unique=true)
+     * @ORM\Column(name="password", type="string", length=64)
      */
-    private $phoneNumber;
+    private $password;
     
     /**
      * @ORM\Column(type="array")
@@ -55,49 +40,13 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = array('ROLE_ADMIN');
         $this->isActive = true;
     }
     
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        
-        return $this;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-        
-        return $this;
-    }
-
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-    
-    public function setPassword($pass)
-    {
-        $this->password = $pass;
-        
-        return $this;
-    }
-    
-    public function getPassword()
-    {
-        return $this->password;
     }
     
     public function setEmail($email)
@@ -112,18 +61,18 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
     
-    public function setPhoneNumber($phoneNumber)
+    public function setPassword($password)
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->password = $password;
         
         return $this;
     }
-
-    public function getPhoneNumber()
+    
+    public function getPassword()
     {
-        return $this->phoneNumber;
+        return $this->password;
     }
-
+    
     public function getSalt()
     {
         return null;
@@ -138,7 +87,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->getEmail();
     }
-
+    
     public function eraseCredentials()
     {
     }
