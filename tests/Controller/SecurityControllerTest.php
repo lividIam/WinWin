@@ -63,4 +63,20 @@ class SecurityControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Login Page', $this->client->getResponse()->getContent());
     }
+    
+    public function testAdminLoginAction()
+    {
+        $crawler = $this->client->request('GET', '/admin/login');    
+        
+        $form = $crawler->selectButton('login')->form([
+            '_username' => 'mark.korcz@gmail.com',
+            '_password' => 'lalalalala'
+        ]);
+        
+        $this->client->submit($form);
+        
+        $this->client->followRedirect();
+        
+        $this->assertContains('Users page!', $this->client->getResponse()->getContent());
+    }
 }
