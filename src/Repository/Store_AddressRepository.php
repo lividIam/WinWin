@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 /**
- * Description of StoreRepository
+ * Description of Store_AddressRepository
  */
-class StoreRepository extends \Doctrine\ORM\EntityRepository
+class Store_AddressRepository extends \Doctrine\ORM\EntityRepository
 {
 }

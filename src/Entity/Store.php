@@ -33,6 +33,11 @@ class Store
      */
     private $owner;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Store_Address", mappedBy="store", cascade={"persist"})
+     */
+    private $address;
+    
     
     public function getId()
     {
@@ -84,5 +89,29 @@ class Store
     public function getOwner()
     {
         return $this->owner;
+    }
+    
+    /**
+     * Set address to store
+     * 
+     * @param \App\Entity\Store_Address $address
+     * @return \App\Entity\Store
+     */
+    public function setAddress(\App\Entity\Store_Address $address) 
+    {        
+        $address->setStore($this);
+        $this->address = $address;
+        
+        return $this;
+    }
+    
+    /**
+     * Get address
+     * 
+     * @return \App\Entity\Store_Address
+     */
+    public function getAddress()
+    {        
+        return $this->address;
     }
 }
