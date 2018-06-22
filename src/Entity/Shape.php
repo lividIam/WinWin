@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Shape
  *
  * @ORM\Table(name="shape")
- * @ORM\Entity(repositoryClass="App\Repository\Common\ShapeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ShapeRepository")
  */
 class Shape extends BaseDetail
 {

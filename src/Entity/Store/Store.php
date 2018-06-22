@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Store;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,7 +28,7 @@ class Store
     private $logo;
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="stores")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\User", inversedBy="stores")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $owner;
@@ -77,7 +77,7 @@ class Store
      * Set owner to store
      * 
      * @param \App\Entity\User $user
-     * @return \App\Entity\Store
+     * @return \App\Entity\Store\Store
      */
     public function setOwner(\App\Entity\User $user = null) 
     {        
@@ -99,10 +99,10 @@ class Store
     /**
      * Set address to store
      * 
-     * @param \App\Entity\Store_Address $address
-     * @return \App\Entity\Store
+     * @param \App\Entity\Store\Store_Address $address
+     * @return \App\Entity\Store\Store
      */
-    public function setAddress(\App\Entity\Store_Address $address) 
+    public function setAddress(\App\Entity\Store\Store_Address $address) 
     {        
         $address->setStore($this);
         $this->address = $address;
@@ -113,7 +113,7 @@ class Store
     /**
      * Get address
      * 
-     * @return \App\Entity\Store_Address
+     * @return \App\Entity\Store\Store_Address
      */
     public function getAddress()
     {        

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Store;
 
 use App\Entity\Inherited\BaseAddress;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,10 +36,10 @@ class Store_Address extends BaseAddress
     /**
      * Set store to address
      * 
-     * @param \App\Entity\Store $store
-     * @return \App\Entity\Store_Address
+     * @param \App\Entity\Store\Store $store
+     * @return \App\Entity\Store\Store_Address
      */
-    public function setStore(\App\Entity\Store $store = null) 
+    public function setStore(\App\Entity\Store\Store $store = null) 
     {        
         $this->store = $store;
         
@@ -49,7 +49,7 @@ class Store_Address extends BaseAddress
     /**
      * Get store
      * 
-     * @return \App\Entity\Store
+     * @return \App\Entity\Store\Store
      */
     public function getStore()
     {

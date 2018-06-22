@@ -49,7 +49,7 @@ class User implements UserInterface, \Serializable
     private $isActive;
     
     /**
-     * @ORM\OneToMany(targetEntity="Store", mappedBy="owner", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Store", mappedBy="owner", cascade={"persist"})
      */
     private $stores;
 
@@ -155,10 +155,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add store to user collection
      * 
-     * @param \App\Entity\Store $store
+     * @param \App\Entity\Store\Store $store
      * @return \App\Entity\User
      */
-    public function setStore(\App\Entity\Store $store)
+    public function setStore(\App\Entity\Store\Store $store)
     {
         $store->setOwner($this);
         $this->stores[] = $store;
@@ -169,7 +169,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get stores
      * 
-     * @return \App\Entity\Store
+     * @return \App\Entity\Store\Store
      */
     public function getStores()
     {        

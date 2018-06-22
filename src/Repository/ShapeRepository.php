@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Common;
+namespace App\Repository;
 
 /**
  * Description of ShapeRepository
