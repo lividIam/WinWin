@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Common\BaseAddress;
+use App\Entity\Inherited\BaseAddress;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="store_address")
  * @ORM\Entity(repositoryClass="App\Repository\Store_AddressRepository")
  */
-class Store_Address extends BaseAddress 
+class Store_Address extends BaseAddress
 {    
     /**
      * @ORM\Column(type="integer")
@@ -25,10 +25,6 @@ class Store_Address extends BaseAddress
      * @ORM\JoinColumn(name="store_id", referencedColumnName="id")
      */
     private $store;
-    
-    /**
-     * Add office and finance credentials
-     */
     
     
     

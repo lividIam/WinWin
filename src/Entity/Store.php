@@ -38,6 +38,11 @@ class Store
      */
     private $address;
     
+    /**
+     * Add office and finance credentials
+     */
+    
+    
     
     public function getId()
     {

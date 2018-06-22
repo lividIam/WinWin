@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Common;
+namespace App\Entity\Inherited;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +9,7 @@ class BaseAddress
     /**
      * @var int
      *
-     * @ORM\Column(name="phoneNumber", type="string", length=15)
+     * @ORM\Column(name="phone_number", type="string", length=15)
      */
     protected $phoneNumber;
 
@@ -23,14 +23,14 @@ class BaseAddress
     /**
      * @var string
      *
-     * @ORM\Column(name="streetNumber", type="string", length=20)
+     * @ORM\Column(name="street_number", type="string", length=20)
      */
     protected $streetNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buildingNumber", type="string", length=10)
+     * @ORM\Column(name="building_number", type="string", length=10)
      */
     protected $buildingNumber;
 
@@ -44,16 +44,11 @@ class BaseAddress
     /**
      * @var string
      *
-     * @ORM\Column(name="postCode", type="string", length=10)
+     * @ORM\Column(name="post_code", type="string", length=10)
      */
     protected $postCode;
 
-
     
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set phoneNumber
