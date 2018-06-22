@@ -28,13 +28,13 @@ class Store
     private $logo;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\App\Entity\User", inversedBy="stores")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Person\User", inversedBy="stores")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $owner;
     
     /**
-     * @ORM\OneToOne(targetEntity="Store_Address", mappedBy="store", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Store_Address", mappedBy="store", cascade={"persist"})
      */
     private $address;
     
@@ -76,10 +76,10 @@ class Store
     /**
      * Set owner to store
      * 
-     * @param \App\Entity\User $user
+     * @param \App\Entity\Person\User $user
      * @return \App\Entity\Store\Store
      */
-    public function setOwner(\App\Entity\User $user = null) 
+    public function setOwner(\App\Entity\Person\User $user = null) 
     {        
         $this->owner = $user;
         
@@ -89,7 +89,7 @@ class Store
     /**
      * Get owner
      * 
-     * @return \App\Entity\User
+     * @return \App\Entity\Person\User
      */
     public function getOwner()
     {

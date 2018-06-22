@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Person;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -156,7 +156,7 @@ class User implements UserInterface, \Serializable
      * Add store to user collection
      * 
      * @param \App\Entity\Store\Store $store
-     * @return \App\Entity\User
+     * @return \App\Entity\Person\User
      */
     public function setStore(\App\Entity\Store\Store $store)
     {

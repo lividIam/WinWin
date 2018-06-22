@@ -21,7 +21,7 @@ class Store_Address extends BaseAddress
     private $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="Store", inversedBy="address")
+     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Store", inversedBy="address")
      * @ORM\JoinColumn(name="store_id", referencedColumnName="id")
      */
     private $store;
