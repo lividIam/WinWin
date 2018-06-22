@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,7 +29,7 @@ class Product_Details
 //    private $color;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Shape", inversedBy="productsDetails")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Shape", inversedBy="productsDetails")
      * @ORM\JoinColumn(name="shape_id", referencedColumnName="id")
      */
     private $shape;
@@ -49,7 +49,7 @@ class Product_Details
     private $price;
    
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productDetails")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Product", inversedBy="productDetails")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
@@ -69,10 +69,10 @@ class Product_Details
     /**
      * Set shape to product_details
      * 
-     * @param \App\Entity\Shape $shape
-     * @return \App\Entity\Product_Details
+     * @param \App\Entity\Product\Details\Shape $shape
+     * @return \App\Entity\Product\Product_Details
      */
-    public function setShape(\App\Entity\Shape $shape = null) 
+    public function setShape(\App\Entity\Product\Details\Shape $shape = null) 
     {        
         $this->shape = $shape;
         
@@ -82,7 +82,7 @@ class Product_Details
     /**
      * Get shape
      * 
-     * @return \App\Entity\Shape
+     * @return \App\Entity\Product\Details\Shape
      */
     public function getShape()
     {
@@ -140,10 +140,10 @@ class Product_Details
     /**
      * Set product to product_details
      * 
-     * @param \App\Entity\Product $product
-     * @return \App\Entity\Product_Details
+     * @param \App\Entity\Product\Product $product
+     * @return \App\Entity\Product\Product_Details
      */
-    public function setProduct(\App\Entity\Product $product = null) 
+    public function setProduct(\App\Entity\Product\Product $product = null) 
     {        
         $this->product = $product;
         
@@ -153,7 +153,7 @@ class Product_Details
     /**
      * Get product
      * 
-     * @return \App\Entity\Product
+     * @return \App\Entity\Product\Product
      */
     public function getProduct()
     {

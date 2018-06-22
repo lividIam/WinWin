@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,7 +29,7 @@ class Category
     private $name;
     
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product", mappedBy="category", cascade={"persist"})
      */
     private $products;
     
@@ -75,10 +75,10 @@ class Category
     /**
      * Add product to category collection
      * 
-     * @param \App\Entity\Product $product
-     * @return \App\Entity\Category
+     * @param \App\Entity\Product\Product $product
+     * @return \App\Entity\Product\Category
      */
-    public function setProduct(\App\Entity\Product $product)
+    public function setProduct(\App\Entity\Product\Product $product)
     {
         $product->setCategory($this);
         $this->products[] = $product;
@@ -89,7 +89,7 @@ class Category
     /**
      * Get products
      * 
-     * @return \App\Entity\Product
+     * @return \App\Entity\Product\Product
      */
     public function getProducts()
     {        

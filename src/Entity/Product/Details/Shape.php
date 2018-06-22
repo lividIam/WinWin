@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Product\Details;
 
 use App\Entity\Inherited\BaseDetail;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +23,7 @@ class Shape extends BaseDetail
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="Product_Details", mappedBy="shape", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="shape", cascade={"persist"})
      */
     private $productsDetails;
     
@@ -47,10 +47,10 @@ class Shape extends BaseDetail
     /**
      * Add product_details to products_details collection
      * 
-     * @param \App\Entity\Product_Details $productDetails
-     * @return \App\Entity\Shape
+     * @param \App\Entity\Product\Product_Details $productDetails
+     * @return \App\Entity\Product\Details\Shape
      */
-    public function setProductDetails(\App\Entity\Product_Details $productDetails)
+    public function setProductDetails(\App\Entity\Product\Product_Details $productDetails)
     {
         $productDetails->setShape($this);
         $this->productsDetails[] = $productDetails;
@@ -61,7 +61,7 @@ class Shape extends BaseDetail
     /**
      * Get products_details
      * 
-     * @return \App\Entity\Product_Details
+     * @return \App\Entity\Product\Product_Details
      */
     public function getProductsDetails()
     {        

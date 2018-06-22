@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,12 +36,12 @@ class Product
     private $description;
     
     /**
-     * @ORM\OneToMany(targetEntity="Product_Details", mappedBy="product", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="product", cascade={"persist"})
      */
     private $productDetails;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Category", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
     private $category;
@@ -114,10 +114,10 @@ class Product
     /**
      * Add product_detail to product collection
      * 
-     * @param \App\Entity\Product_Details $productDetail
-     * @return \App\Entity\Product
+     * @param \App\Entity\Product\Product_Details $productDetail
+     * @return \App\Entity\Product\Product
      */
-    public function setProductDetail(\App\Entity\Product_Details $productDetail)
+    public function setProductDetail(\App\Entity\Product\Product_Details $productDetail)
     {
         $productDetail->setProduct($this);
         $this->productDetails[] = $productDetail;
@@ -128,7 +128,7 @@ class Product
     /**
      * Get product_details
      * 
-     * @return \App\Entity\Product_Details
+     * @return \App\Entity\Product\Product_Details
      */
     public function getProductDetails()
     {        
@@ -138,10 +138,10 @@ class Product
     /**
      * Set category to product
      * 
-     * @param \App\Entity\Category $category
-     * @return \App\Entity\Product
+     * @param \App\Entity\Product\Category $category
+     * @return \App\Entity\Product\Product
      */
-    public function setCategory(\App\Entity\Category $category = null) 
+    public function setCategory(\App\Entity\Product\Category $category = null) 
     {        
         $this->category = $category;
         
@@ -151,7 +151,7 @@ class Product
     /**
      * Get category
      * 
-     * @return \App\Entity\Category
+     * @return \App\Entity\Product\Category
      */
     public function getCategory()
     {
