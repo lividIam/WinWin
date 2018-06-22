@@ -29,6 +29,12 @@ class Product_Details
 //    private $color;
     
     /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Manufacturer", inversedBy="productsDetails")
+     * @ORM\JoinColumn(name="manufacturer_id", referencedColumnName="id")
+     */
+    private $manufacturer;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Shape", inversedBy="productsDetails")
      * @ORM\JoinColumn(name="shape_id", referencedColumnName="id")
      */
@@ -64,6 +70,29 @@ class Product_Details
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set manufacturer to product_details
+     * 
+     * @param \App\Entity\Product\Details\Manufacturer $manufacturer
+     * @return \App\Entity\Product\Product_Details
+     */
+    public function setManufacturer(\App\Entity\Product\Details\Manufacturer $manufacturer = null) 
+    {        
+        $this->manufacturer = $manufacturer;
+        
+        return $this;
+    }
+    
+    /**
+     * Get shape
+     * 
+     * @return \App\Entity\Product\Details\Shape
+     */
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
     }
     
     /**

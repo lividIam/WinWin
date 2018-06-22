@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Shape
  *
- * @ORM\Table(name="shape")
- * @ORM\Entity(repositoryClass="App\Repository\ShapeRepository")
+ * @ORM\Table(name="manufacturer")
+ * @ORM\Entity(repositoryClass="App\Repository\ManufacturerRepository")
  */
-class Shape extends BaseDetail
+class Manufacturer extends BaseDetail
 {
     /**
      * @var int
@@ -23,7 +23,7 @@ class Shape extends BaseDetail
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="shape", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="manufacturer", cascade={"persist"})
      */
     private $productsDetails;
     
@@ -48,11 +48,11 @@ class Shape extends BaseDetail
      * Add product_details to products_details collection
      * 
      * @param \App\Entity\Product\Product_Details $productDetails
-     * @return \App\Entity\Product\Details\Shape
+     * @return \App\Entity\Product\Details\Manufacturer
      */
     public function setProductDetails(\App\Entity\Product\Product_Details $productDetails)
     {
-        $productDetails->setShape($this);
+        $productDetails->setManufacturer($this);
         $this->productsDetails[] = $productDetails;
         
         return $this;
