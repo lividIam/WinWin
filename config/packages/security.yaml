@@ -1,7 +1,7 @@
 security:          
     encoders:
-        App\Entity\Admin: bcrypt
-        App\Entity\User:  bcrypt
+        App\Entity\Person\Admin: bcrypt
+        App\Entity\Person\User:  bcrypt
             
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -12,9 +12,9 @@ security:
             chain:
                 providers: [admin, user]
         admin:
-            entity: { class: App:Admin, property: email }
+            entity: { class: App\Entity\Person\Admin, property: email }
         user:
-            entity: { class: App:User, property: email }
+            entity: { class: App\Entity\Person\User, property: email }
 
     firewalls:
         dev:
