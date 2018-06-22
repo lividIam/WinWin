@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity\Product;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,8 +25,6 @@ class Product_Details
 //    
 //    private $size;
 //    
-//    private $model;
-//    
 //    private $color;
     
     /**
@@ -33,6 +32,12 @@ class Product_Details
      * @ORM\JoinColumn(name="manufacturer_id", referencedColumnName="id")
      */
     private $manufacturer;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Model", inversedBy="productsDetails")
+     * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
+     */
+    private $model;
     
     /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Shape", inversedBy="productsDetails")
@@ -73,6 +78,29 @@ class Product_Details
     }
     
     /**
+     * Set model to product_details
+     * 
+     * @param \App\Entity\Product\Details\Model $model
+     * @return \App\Entity\Product\Product_Details
+     */
+    public function setModel(\App\Entity\Product\Details\Model $model = null) 
+    {        
+        $this->model = $model;
+        
+        return $this;
+    }
+    
+    /**
+     * Get model
+     * 
+     * @return \App\Entity\Product\Details\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+    
+    /**
      * Set manufacturer to product_details
      * 
      * @param \App\Entity\Product\Details\Manufacturer $manufacturer
@@ -86,9 +114,9 @@ class Product_Details
     }
     
     /**
-     * Get shape
+     * Get manufacturer
      * 
-     * @return \App\Entity\Product\Details\Shape
+     * @return \App\Entity\Product\Details\Manufacturer
      */
     public function getManufacturer()
     {
