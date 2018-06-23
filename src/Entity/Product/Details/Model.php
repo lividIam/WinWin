@@ -6,7 +6,7 @@ use App\Entity\Inherited\BaseDetail;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Shape
+ * Model
  *
  * @ORM\Table(name="model")
  * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")

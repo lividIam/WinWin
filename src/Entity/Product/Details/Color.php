@@ -6,12 +6,12 @@ use App\Entity\Inherited\BaseDetail;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Version
+ * Color
  *
- * @ORM\Table(name="version")
- * @ORM\Entity(repositoryClass="App\Repository\VersionRepository")
+ * @ORM\Table(name="color")
+ * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
  */
-class Version extends BaseDetail
+class Color extends BaseDetail
 {
     /**
      * @var int
@@ -23,7 +23,7 @@ class Version extends BaseDetail
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="version", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product_Details", mappedBy="color", cascade={"persist"})
      */
     private $productsDetails;
     
@@ -48,11 +48,11 @@ class Version extends BaseDetail
      * Add product_details to products_details collection
      * 
      * @param \App\Entity\Product\Product_Details $productDetails
-     * @return \App\Entity\Product\Details\Version
+     * @return \App\Entity\Product\Details\Color
      */
     public function setProductDetails(\App\Entity\Product\Product_Details $productDetails)
     {
-        $productDetails->setVersion($this);
+        $productDetails->setColor($this);
         $this->productsDetails[] = $productDetails;
         
         return $this;

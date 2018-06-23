@@ -22,8 +22,6 @@ class Product_Details
     private $id;
       
 //    private $size;
-//    
-//    private $color;
     
     /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Manufacturer", inversedBy="productsDetails")
@@ -42,6 +40,12 @@ class Product_Details
      * @ORM\JoinColumn(name="version_id", referencedColumnName="id")
      */
     private $version;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Color", inversedBy="productsDetails")
+     * @ORM\JoinColumn(name="color_id", referencedColumnName="id")
+     */
+    private $color;
     
     /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Shape", inversedBy="productsDetails")
@@ -148,6 +152,29 @@ class Product_Details
     public function getVersion()
     {
         return $this->version;
+    }
+    
+    /**
+     * Set color to product_details
+     * 
+     * @param \App\Entity\Product\Details\Color $color
+     * @return \App\Entity\Product\Product_Details
+     */
+    public function setColor(\App\Entity\Product\Details\Version $color = null) 
+    {        
+        $this->color = $color;
+        
+        return $this;
+    }
+    
+    /**
+     * Get color
+     * 
+     * @return \App\Entity\Product\Details\Color
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
     
     /**
