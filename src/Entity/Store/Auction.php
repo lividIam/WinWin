@@ -38,14 +38,17 @@ class Auction
      */
     private $store;
     
-    
-    
     /**
-     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Store_Address", mappedBy="store", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Offer", mappedBy="auction", cascade={"persist"})
      */
-//    private $address;
+    private $offers;
     
     
+    
+    public function __construct() 
+    {
+        $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     public function getId()
     {
@@ -111,35 +114,27 @@ class Auction
         return $this->store;
     }
     
-    
-    
-    
-    
-    
-    
-    
+    /**
+     * Add offer to offers collection
+     * 
+     * @param \App\Entity\Store\Offer $offer
+     * @return \App\Entity\Store\Auction
+     */
+    public function setOffer(\App\Entity\Store\Offer $offer)
+    {
+        $offer->setOffer($this);
+        $this->offers[] = $offer;
+        
+        return $this;
+    }
     
     /**
-     * Set address to store
+     * Get Offers
      * 
-     * @param \App\Entity\Store\Store_Address $address
-     * @return \App\Entity\Store\Store
+     * @return \App\Entity\Store\Auction
      */
-//    public function setAddress(\App\Entity\Store\Store_Address $address) 
-//    {        
-//        $address->setStore($this);
-//        $this->address = $address;
-//        
-//        return $this;
-//    }
-    
-    /**
-     * Get address
-     * 
-     * @return \App\Entity\Store\Store_Address
-     */
-//    public function getAddress()
-//    {        
-//        return $this->address;
-//    }
+    public function getOffers()
+    {        
+        return $this->offers;
+    }
 }

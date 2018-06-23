@@ -44,10 +44,21 @@ class Store
     private $auctions;
     
     /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Offer", mappedBy="store", cascade={"persist"})
+     */
+    private $offers;
+    
+    /**
      * Add office and finance credentials
      */
     
     
+    
+    public function __construct() 
+    {
+        $this->auctions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     public function getId()
     {
@@ -147,5 +158,29 @@ class Store
     public function getAuctions()
     {        
         return $this->auctions;
+    }
+    
+    /**
+     * Set offer to offers
+     * 
+     * @param \App\Entity\Store\Offer $offer
+     * @return \App\Entity\Store\Store
+     */
+    public function setOffer(\App\Entity\Person\User $offer = null) 
+    {     
+        $offer->setStore($this);
+        $this->offers[] = $offer;
+        
+        return $this;
+    }
+    
+    /**
+     * Get offers
+     * 
+     * @return \App\Entity\Person\User
+     */
+    public function getOffers()
+    {
+        return $this->offers;
     }
 }
