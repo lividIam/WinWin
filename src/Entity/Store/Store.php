@@ -39,6 +39,11 @@ class Store
     private $address;
     
     /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Auction", mappedBy="store", cascade={"persist"})
+     */
+    private $auctions;
+    
+    /**
      * Add office and finance credentials
      */
     
@@ -118,5 +123,29 @@ class Store
     public function getAddress()
     {        
         return $this->address;
+    }
+    
+    /**
+     * Add auction to auctions collection
+     * 
+     * @param \App\Entity\Store\Auction $auction
+     * @return \App\Entity\Store\Store
+     */
+    public function setAuction(\App\Entity\Store\Auction $auction)
+    {
+        $auction->setStore($this);
+        $this->auctions[] = $auction;
+        
+        return $this;
+    }
+    
+    /**
+     * Get auctions
+     * 
+     * @return \App\Entity\Store\Auction
+     */
+    public function getAuctions()
+    {        
+        return $this->auctions;
     }
 }
