@@ -20,9 +20,7 @@ class Product_Details
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
-//    private $version;
-//    
+      
 //    private $size;
 //    
 //    private $color;
@@ -38,6 +36,12 @@ class Product_Details
      * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
      */
     private $model;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Version", inversedBy="productsDetails")
+     * @ORM\JoinColumn(name="version_id", referencedColumnName="id")
+     */
+    private $version;
     
     /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Details\Shape", inversedBy="productsDetails")
@@ -78,6 +82,29 @@ class Product_Details
     }
     
     /**
+     * Set manufacturer to product_details
+     * 
+     * @param \App\Entity\Product\Details\Manufacturer $manufacturer
+     * @return \App\Entity\Product\Product_Details
+     */
+    public function setManufacturer(\App\Entity\Product\Details\Manufacturer $manufacturer = null) 
+    {        
+        $this->manufacturer = $manufacturer;
+        
+        return $this;
+    }
+    
+    /**
+     * Get manufacturer
+     * 
+     * @return \App\Entity\Product\Details\Manufacturer
+     */
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
+    }
+    
+    /**
      * Set model to product_details
      * 
      * @param \App\Entity\Product\Details\Model $model
@@ -101,26 +128,26 @@ class Product_Details
     }
     
     /**
-     * Set manufacturer to product_details
+     * Set version to product_details
      * 
-     * @param \App\Entity\Product\Details\Manufacturer $manufacturer
+     * @param \App\Entity\Product\Details\Version $version
      * @return \App\Entity\Product\Product_Details
      */
-    public function setManufacturer(\App\Entity\Product\Details\Manufacturer $manufacturer = null) 
+    public function setVersion(\App\Entity\Product\Details\Version $version = null) 
     {        
-        $this->manufacturer = $manufacturer;
+        $this->version = $version;
         
         return $this;
     }
     
     /**
-     * Get manufacturer
+     * Get version
      * 
-     * @return \App\Entity\Product\Details\Manufacturer
+     * @return \App\Entity\Product\Details\Version
      */
-    public function getManufacturer()
+    public function getVersion()
     {
-        return $this->manufacturer;
+        return $this->version;
     }
     
     /**
