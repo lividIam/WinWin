@@ -18,10 +18,6 @@ class Offer
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Store", mappedBy="offers", cascade={"persist"})
-     */
-    
-    /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Store", inversedBy="offers")
      * @ORM\JoinColumn(name="store_id", referencedColumnName="id", nullable=false)
      */
@@ -33,7 +29,11 @@ class Offer
      */
     private $auction;
     
-    
+    /**
+     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Products_Bag", inversedBy="offer")
+     * @ORM\JoinColumn(name="products_bag_id", referencedColumnName="id")
+     */
+    private $productsBag;
     
     public function getId()
     {
@@ -84,5 +84,28 @@ class Offer
     public function getAuction()
     {
         return $this->auction;
+    }
+    
+    /**
+     * Set products_bag to offer
+     * 
+     * @param \App\Entity\Store\ProductsBag $productsBag
+     * @return \App\Entity\Store\Offer
+     */
+    public function setProductsBag(\App\Entity\Store\ProductsBag $productsBag = null) 
+    {        
+        $this->productsBag = $productsBag;
+        
+        return $this;
+    }
+    
+    /**
+     * Get products_bag
+     * 
+     * @return \App\Entity\Store\ProductsBag
+     */
+    public function getProductsBag()
+    {
+        return $this->productsBag;
     }
 }
