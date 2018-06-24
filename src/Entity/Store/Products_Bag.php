@@ -22,6 +22,19 @@ class Products_Bag
      */
     private $offer;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Product\Product", mappedBy="productsBags", cascade={"persist"})
+     * @ORM\JoinTable(name="bag")
+     */
+    private $products;
+    
+    
+    
+    public function __construct() 
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     public function getId()
     {
         return $this->id;
@@ -49,5 +62,29 @@ class Products_Bag
     public function getOffer()
     {        
         return $this->offer;
+    }
+    
+    /**
+     * Add product to products_bag collection
+     * 
+     * @param \App\Entity\Product\Product $product
+     * @return \App\Entity\Store\Products_Bag
+     */
+    public function setProduct(\App\Entity\Product\Product $product)
+    {
+        $product->setProductsBag($this);
+        $this->products[] = $product;
+        
+        return $this;
+    }
+    
+    /**
+     * Get products
+     * 
+     * @return \App\Entity\Product\Product
+     */
+    public function getProducts()
+    {        
+        return $this->products;
     }
 }

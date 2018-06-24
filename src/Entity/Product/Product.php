@@ -46,11 +46,17 @@ class Product
      */
     private $category;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Store\Products_Bag", inversedBy="products")
+     */
+    private $productsBags;
+    
     
     
     public function __construct() 
     {
         $this->productDetails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productsBags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -156,6 +162,30 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    /**
+     * Add products_bag to product collection
+     * 
+     * @param \App\Entity\Store\Products_Bag $productsBag
+     * @return \App\Entity\Product\Product
+     */
+    public function setProductsBag(\App\Entity\Store\Products_Bag $productsBag)
+    {
+        $productsBag->setProduct($this);
+        $this->productsBags[] = $productsBag;
+        
+        return $this;
+    }
+    
+    /**
+     * Get products_bags
+     * 
+     * @return \App\Entity\Store\Products_Bag
+     */
+    public function getProductsBags()
+    {        
+        return $this->productsBags;
     }
     
     public function __toString()
