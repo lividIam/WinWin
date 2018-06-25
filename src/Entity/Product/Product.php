@@ -47,7 +47,7 @@ class Product
     private $category;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\App\Entity\Store\Products_Bag", inversedBy="products")
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Product_Bag", mappedBy="product", cascade={"persist"})
      */
     private $productsBags;
     
@@ -118,7 +118,7 @@ class Product
     }
     
     /**
-     * Add product_detail to product collection
+     * Add product_detail to product_details collection
      * 
      * @param \App\Entity\Product\Product_Details $productDetail
      * @return \App\Entity\Product\Product
@@ -165,15 +165,15 @@ class Product
     }
     
     /**
-     * Add products_bag to product collection
+     * Add product_bag to products_bags collection
      * 
-     * @param \App\Entity\Store\Products_Bag $productsBag
+     * @param \App\Entity\Store\Product_Bag $productBag
      * @return \App\Entity\Product\Product
      */
-    public function setProductsBag(\App\Entity\Store\Products_Bag $productsBag)
+    public function setProductsBag(\App\Entity\Store\Product_Bag $productBag)
     {
-        $productsBag->setProduct($this);
-        $this->productsBags[] = $productsBag;
+        $productBag->setProduct($this);
+        $this->productsBags[] = $productBag;
         
         return $this;
     }
@@ -181,7 +181,7 @@ class Product
     /**
      * Get products_bags
      * 
-     * @return \App\Entity\Store\Products_Bag
+     * @return \App\Entity\Store\Product_Bag
      */
     public function getProductsBags()
     {        

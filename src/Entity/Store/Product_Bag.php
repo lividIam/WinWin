@@ -5,10 +5,10 @@ namespace App\Entity\Store;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="products_bag")
- * @ORM\Entity(repositoryClass="App\Repository\Products_BagRepository")
+ * @ORM\Table(name="product_bag")
+ * @ORM\Entity(repositoryClass="App\Repository\Product_BagRepository")
  */
-class Products_Bag
+class Product_Bag
 {
     /**
      * @ORM\Column(type="integer")
@@ -18,22 +18,18 @@ class Products_Bag
     private $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Offer", mappedBy="productsBag", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Offer", inversedBy="productsBags")
+     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
      */
     private $offer;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\App\Entity\Product\Product", mappedBy="productsBags", cascade={"persist"})
-     * @ORM\JoinTable(name="bag")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Product", inversedBy="productsBags")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
-    private $products;
+    private $product;
     
     
-    
-    public function __construct() 
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-    }
     
     public function getId()
     {
@@ -41,14 +37,13 @@ class Products_Bag
     }
     
     /**
-     * Set offer to products_bag
+     * Set offer to product_bag
      * 
      * @param \App\Entity\Store\Offer $offer
-     * @return \App\Entity\Store\Products_Bag
+     * @return \App\Entity\Store\Product_Bag
      */
     public function setOffer(\App\Entity\Store\Offer $offer) 
     {        
-        $offer->setProductsBag($this);
         $this->offer = $offer;
         
         return $this;
@@ -65,26 +60,25 @@ class Products_Bag
     }
     
     /**
-     * Add product to products_bag collection
+     * Add product to product_bag
      * 
      * @param \App\Entity\Product\Product $product
-     * @return \App\Entity\Store\Products_Bag
+     * @return \App\Entity\Store\Product_Bag
      */
     public function setProduct(\App\Entity\Product\Product $product)
     {
-        $product->setProductsBag($this);
-        $this->products[] = $product;
+        $this->product = $product;
         
         return $this;
     }
     
     /**
-     * Get products
+     * Get product
      * 
      * @return \App\Entity\Product\Product
      */
-    public function getProducts()
+    public function getProduct()
     {        
-        return $this->products;
+        return $this->product;
     }
 }

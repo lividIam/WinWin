@@ -30,10 +30,16 @@ class Offer
     private $auction;
     
     /**
-     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Products_Bag", inversedBy="offer")
-     * @ORM\JoinColumn(name="products_bag_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Product_Bag", mappedBy="offer", cascade={"persist"})
      */
-    private $productsBag;
+    private $productsBags;
+    
+    
+    
+    public function __construct() 
+    {
+        $this->productsBags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
     public function getId()
     {
@@ -87,25 +93,26 @@ class Offer
     }
     
     /**
-     * Set products_bag to offer
+     * Set product_bag to offer
      * 
-     * @param \App\Entity\Store\ProductsBag $productsBag
+     * @param \App\Entity\Store\Product_Bag $productBag
      * @return \App\Entity\Store\Offer
      */
-    public function setProductsBag(\App\Entity\Store\ProductsBag $productsBag = null) 
+    public function setProductBag(\App\Entity\Store\Product_Bag $productBag = null) 
     {        
-        $this->productsBag = $productsBag;
+        $productBag->setOffer($this);
+        $this->productsBags[] = $productBag;
         
         return $this;
     }
     
     /**
-     * Get products_bag
+     * Get products_bags
      * 
-     * @return \App\Entity\Store\ProductsBag
+     * @return \App\Entity\Store\Product_Bag
      */
-    public function getProductsBag()
+    public function getProductsBags()
     {
-        return $this->productsBag;
+        return $this->productsBags;
     }
 }
