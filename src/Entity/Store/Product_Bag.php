@@ -18,6 +18,11 @@ class Product_Bag
     private $id;
     
     /**
+     * @ORM\Column(name="quantity", type="integer")
+     */
+    private $quantity;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Offer", inversedBy="productsBags")
      * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
      */
@@ -34,6 +39,28 @@ class Product_Bag
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function setQuantity($quantity)
+    {
+        $allowedQuantity = $this->getProduct()->getProductDetails()->getQuantity();
+        
+        if($quantity <= $allowedQuantity) {
+            
+            $this->quantity = $quantity;
+            
+        } else {
+            
+            $this->quantity = $allowedQuantity;
+            // or display somewhere message ?
+        }
+
+        return $this;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
     
     /**
