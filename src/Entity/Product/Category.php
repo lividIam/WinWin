@@ -33,28 +33,18 @@ class Category
      */
     private $products;
     
+    
+    
     public function __construct() 
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Category
-     */
     public function setName($name)
     {
         $this->name = $name;
@@ -62,18 +52,13 @@ class Category
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
     
     /**
-     * Add product to category collection
+     * Add product to products collection
      * 
      * @param \App\Entity\Product\Product $product
      * @return \App\Entity\Product\Category

@@ -39,6 +39,11 @@ class User implements UserInterface, \Serializable
     private $email;
     
     /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Person\User_Address", mappedBy="user", cascade={"persist"})
+     */
+    private $addresses;
+    
+    /**
      * @ORM\Column(type="array")
      */
     private $roles;
@@ -62,6 +67,7 @@ class User implements UserInterface, \Serializable
     {
         $this->roles = array('ROLE_USER');
         $this->isActive = true;
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->stores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -117,6 +123,30 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    /**
+     * Add address to addresses collection
+     * 
+     * @param \App\Entity\Person\User_Address $address
+     * @return \App\Entity\Person\User
+     */
+    public function setAddress(\App\Entity\Product\Product $address)
+    {
+        $address->setUser($this);
+        $this->addresses[] = $address;
+        
+        return $this;
+    }
+    
+    /**
+     * Get addresses
+     * 
+     * @return \App\Entity\Person\User_Address
+     */
+    public function getAddresses()
+    {        
+        return $this->addresses;
     }
 
     public function getSalt()
