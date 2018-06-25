@@ -52,7 +52,7 @@ class Offer
      * @param \App\Entity\Store\Store $store
      * @return \App\Entity\Store\Offer
      */
-    public function setStore(\App\Entity\Store\Store $store) 
+    public function setStore(\App\Entity\Store\Store $store = null) 
     {
         $this->store = $store;
         
@@ -73,7 +73,7 @@ class Offer
      * Set auction to offer
      * 
      * @param \App\Entity\Store\Auction $auction
-     * @return \App\Entity\Product\Product
+     * @return \App\Entity\Store\Offer
      */
     public function setAuction(\App\Entity\Store\Auction $auction = null) 
     {        

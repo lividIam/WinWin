@@ -52,12 +52,18 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="\App\Entity\Store\Store", mappedBy="owner", cascade={"persist"})
      */
     private $stores;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Order", mappedBy="owner", cascade={"persist"})
+     */
+    private $orders;
 
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
         $this->isActive = true;
         $this->stores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getId()
@@ -174,5 +180,29 @@ class User implements UserInterface, \Serializable
     public function getStores()
     {        
         return $this->stores;
+    }
+    
+    /**
+     * Set order to orders
+     * 
+     * @param \App\Entity\Store\Order $order
+     * @return \App\Entity\Person\User
+     */
+    public function setOrder(\App\Entity\Store\Order $order = null) 
+    {     
+        $order->setOwner($this);
+        $this->orders[] = $order;
+        
+        return $this;
+    }
+    
+    /**
+     * Get offers
+     * 
+     * @return \App\Entity\Store\Order
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

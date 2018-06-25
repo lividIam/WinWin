@@ -43,11 +43,17 @@ class Auction
      */
     private $offers;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Order", mappedBy="auction", cascade={"persist"})
+     */
+    private $orders;
+    
     
     
     public function __construct() 
     {
         $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getId()
@@ -129,12 +135,36 @@ class Auction
     }
     
     /**
-     * Get Offers
+     * Get offers
      * 
-     * @return \App\Entity\Store\Auction
+     * @return \App\Entity\Store\Offer
      */
     public function getOffers()
     {        
         return $this->offers;
+    }
+    
+    /**
+     * Add oder to orders collection
+     * 
+     * @param \App\Entity\Store\Order $order
+     * @return \App\Entity\Store\Auction
+     */
+    public function setOrder(\App\Entity\Store\Order $order)
+    {
+        $order->setOrder($this);
+        $this->orders[] = $order;
+        
+        return $this;
+    }
+    
+    /**
+     * Get orders
+     * 
+     * @return \App\Entity\Store\Order
+     */
+    public function getOrders()
+    {        
+        return $this->orders;
     }
 }

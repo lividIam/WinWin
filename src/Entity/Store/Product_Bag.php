@@ -29,6 +29,12 @@ class Product_Bag
     private $offer;
     
     /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Order", inversedBy="productsBags")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     */
+    private $order;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Product", inversedBy="productsBags")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
@@ -84,6 +90,29 @@ class Product_Bag
     public function getOffer()
     {        
         return $this->offer;
+    }
+    
+    /**
+     * Set order to product_bag
+     * 
+     * @param \App\Entity\Store\Order $order
+     * @return \App\Entity\Store\Product_Bag
+     */
+    public function setOrder(\App\Entity\Store\Order $order) 
+    {        
+        $this->order = $order;
+        
+        return $this;
+    }
+    
+    /**
+     * Get order
+     * 
+     * @return \App\Entity\Store\Order
+     */
+    public function getOrder()
+    {        
+        return $this->order;
     }
     
     /**

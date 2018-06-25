@@ -5,10 +5,10 @@ namespace App\Entity\Store;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="offer")
- * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
+ * @ORM\Table(name="order")
+ * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
  */
-class Offer
+class Order
 {
     /**
      * @ORM\Column(type="integer")
@@ -18,19 +18,19 @@ class Offer
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Store", inversedBy="offers")
-     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Person\User", inversedBy="orders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
-    private $store;   
+    private $owner;   
     
     /**
-     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Auction", inversedBy="offers")
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Auction", inversedBy="orders")
      * @ORM\JoinColumn(name="auction_id", referencedColumnName="id", nullable=false)
      */
     private $auction;
     
     /**
-     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Product_Bag", mappedBy="offer", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\Store\Product_Bag", mappedBy="order", cascade={"persist"})
      */
     private $productsBags;
     
@@ -47,33 +47,33 @@ class Offer
     }
     
     /**
-     * Set store to offer
+     * Set owner to order
      * 
-     * @param \App\Entity\Store\Store $store
-     * @return \App\Entity\Store\Offer
+     * @param \App\Entity\Person\User $user
+     * @return \App\Entity\Store\Order
      */
-    public function setStore(\App\Entity\Store\Store $store) 
+    public function setOwner(\App\Entity\Person\User $user = null) 
     {
-        $this->store = $store;
+        $this->owner = $user;
         
         return $this;
     }
     
     /**
-     * Get store
+     * Get owner
      * 
-     * @return \App\Entity\Store\Store
+     * @return \App\Entity\Person\User
      */
-    public function getStore()
+    public function getOwner()
     {        
-        return $this->store;
+        return $this->owner;
     }
     
     /**
-     * Set auction to offer
+     * Set auction to order
      * 
      * @param \App\Entity\Store\Auction $auction
-     * @return \App\Entity\Product\Product
+     * @return \App\Entity\Store\Order
      */
     public function setAuction(\App\Entity\Store\Auction $auction = null) 
     {        
@@ -93,14 +93,14 @@ class Offer
     }
     
     /**
-     * Set product_bag to offer
+     * Set product_bag to order
      * 
      * @param \App\Entity\Store\Product_Bag $productBag
-     * @return \App\Entity\Store\Offer
+     * @return \App\Entity\Store\Order
      */
     public function setProductBag(\App\Entity\Store\Product_Bag $productBag = null) 
     {        
-        $productBag->setOffer($this);
+        $productBag->setOrder($this);
         $this->productsBags[] = $productBag;
         
         return $this;

@@ -166,7 +166,7 @@ class Store
      * @param \App\Entity\Store\Offer $offer
      * @return \App\Entity\Store\Store
      */
-    public function setOffer(\App\Entity\Person\User $offer = null) 
+    public function setOffer(\App\Entity\Store\Offer $offer = null) 
     {     
         $offer->setStore($this);
         $this->offers[] = $offer;
@@ -177,7 +177,7 @@ class Store
     /**
      * Get offers
      * 
-     * @return \App\Entity\Person\User
+     * @return \App\Entity\Store\Offer
      */
     public function getOffers()
     {
