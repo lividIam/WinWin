@@ -47,6 +47,12 @@ class Product
     private $category;
     
     /**
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Store\Store", inversedBy="products")
+     * @ORM\JoinColumn(name="store_id", referencedColumnName="id", nullable=false)
+     */
+    private $store;
+    
+    /**
      * @ORM\OneToMany(targetEntity="\App\Entity\Store\Product_Bag", mappedBy="product", cascade={"persist"})
      */
     private $productsBags;
@@ -162,6 +168,29 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    /**
+     * Set store to product
+     * 
+     * @param \App\Entity\Store\Store $store
+     * @return \App\Entity\Product\Product
+     */
+    public function setStore(\App\Entity\Store\Store $store = null) 
+    {        
+        $this->store = $store;
+        
+        return $this;
+    }
+    
+    /**
+     * Get store
+     * 
+     * @return \App\Entity\Store\Store
+     */
+    public function getStore()
+    {
+        return $this->store;
     }
     
     /**

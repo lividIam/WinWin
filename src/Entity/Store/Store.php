@@ -39,6 +39,11 @@ class Store
     private $address;
     
     /**
+     * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product", mappedBy="store", cascade={"persist"})
+     */
+    private $products;
+    
+    /**
      * @ORM\OneToMany(targetEntity="\App\Entity\Store\Auction", mappedBy="store", cascade={"persist"})
      */
     private $auctions;
@@ -58,6 +63,7 @@ class Store
     {
         $this->auctions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getId()
@@ -134,6 +140,30 @@ class Store
     public function getAddress()
     {        
         return $this->address;
+    }
+    
+    /**
+     * Add product to products collection
+     * 
+     * @param \App\Entity\Product\Product $product
+     * @return \App\Entity\Store\Store
+     */
+    public function setProduct(\App\Entity\Product\Product $product)
+    {
+        $product->setStore($this);
+        $this->products[] = $product;
+        
+        return $this;
+    }
+    
+    /**
+     * Get products
+     * 
+     * @return \App\Entity\Product\Product
+     */
+    public function getProducts()
+    {        
+        return $this->products;
     }
     
     /**
