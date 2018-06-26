@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Product_Details 
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -54,22 +52,18 @@ class Product_Details
     private $shape;
     
     /**
-     * @var int
-     * 
      * @ORM\Column(name="quantity", type="integer")
      */
     private $quantity;
     
     /**
-     * @var float
-     *
      * @ORM\Column(name="price", type="float")
      */
     private $price;
    
     /**
      * @ORM\ManyToOne(targetEntity="\App\Entity\Product\Product", inversedBy="productDetails")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=true)
      */
     private $product;
     
@@ -160,7 +154,7 @@ class Product_Details
      * @param \App\Entity\Product\Details\Color $color
      * @return \App\Entity\Product\Product_Details
      */
-    public function setColor(\App\Entity\Product\Details\Version $color = null) 
+    public function setColor(\App\Entity\Product\Details\Color $color = null) 
     {        
         $this->color = $color;
         

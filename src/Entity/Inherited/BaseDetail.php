@@ -9,7 +9,7 @@ class BaseDetail
     /**
      * @var int
      *
-     * @ORM\Column(name="name", type="string", length=20)
+     * @ORM\Column(name="name", type="string", length=20, unique=true)
      */
     protected $name;
 

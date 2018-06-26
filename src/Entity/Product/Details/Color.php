@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Color
  *
  * @ORM\Table(name="color")
- * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ColorRepository")
  */
 class Color extends BaseDetail
 {
