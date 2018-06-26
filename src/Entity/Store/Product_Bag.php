@@ -49,18 +49,8 @@ class Product_Bag
     
     public function setQuantity($quantity)
     {
-        $allowedQuantity = $this->getProduct()->getProductDetails()->getQuantity();
-        
-        if($quantity <= $allowedQuantity) {
+        $this->quantity = $quantity;
             
-            $this->quantity = $quantity;
-            
-        } else {
-            
-            $this->quantity = $allowedQuantity;
-            // or display somewhere message ?
-        }
-
         return $this;
     }
 
