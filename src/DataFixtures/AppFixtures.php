@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Person\User;
+use App\Entity\Person\User_Address;
 use App\Entity\Person\Admin;
 use App\Entity\Store\Store;
+use App\Entity\Store\Store_Address;
 use App\Entity\Product\Product;
 use App\Entity\Product\Category;
 use App\Entity\Product\Product_Details;
@@ -35,8 +37,19 @@ class AppFixtures extends Fixture
         $user->setEmail('mariano.italiano@gmail.com');
         $userPassword = $this->encoder->encodePassword($user, 'lalalalala');
         $user->setPassword($userPassword);
-        
         $manager->persist($user);
+        
+        
+        // load User_Address
+        $userAddress = new User_Address();
+        $userAddress->setUser($user);
+        $userAddress->setPhoneNumber('999666333');
+        $userAddress->setStreet('Baltic st.');
+        $userAddress->setStreetNumber('19');
+        $userAddress->setBuildingNumber('7');
+        $userAddress->setPostCode('752:47');
+        $userAddress->setCity('SaltLakeCity');
+        $manager->persist($userAddress);
         
         
         // load Admin
@@ -44,7 +57,6 @@ class AppFixtures extends Fixture
         $admin->setEmail('mark.korcz@gmail.com');
         $adminPassword = $this->encoder->encodePassword($admin, 'lalalalala');
         $admin->setPassword($adminPassword);
-        
         $manager->persist($admin);
         
         
@@ -54,43 +66,69 @@ class AppFixtures extends Fixture
         // need logic for adding picture
         $store->setLogo('logo.png');
         $store->setOwner($user);
-        
         $manager->persist($store);
+        
+        
+        // load Store_Address
+        $storeAddress = new Store_Address();
+        $storeAddress->setStore($store);
+        $storeAddress->setPhoneNumber('123654789');
+        $storeAddress->setStreet('Sesame st.');
+        $storeAddress->setStreetNumber('13');
+        $storeAddress->setBuildingNumber('27');
+        $storeAddress->setPostCode('527:23');
+        $storeAddress->setCity('NewYorkCity');
+        $manager->persist($storeAddress);
         
         
         // load Manufacturer detail
         $manufacturer = new Manufacturer();
         $manufacturer->setName('Apple');
-        
         $manager->persist($manufacturer);
+        
+        $manufacturer2 = new Manufacturer();
+        $manufacturer2->setName('Dell');
+        $manager->persist($manufacturer2);
         
         
         // load Model detail
         $model = new Model();
         $model->setName('iPhone');
-        
         $manager->persist($model);
+        
+        $model2 = new Model();
+        $model2->setName('Inspiron');
+        $manager->persist($model2);
         
         
         // load Version detail
         $version = new Version();
         $version->setName('6s');
-        
         $manager->persist($version);
+        
+        $version2 = new Version();
+        $version2->setName('15 5000');
+        $manager->persist($version2);
         
         
         // load Color detail
         $color = new Color();
         $color->setName('red');
-        
         $manager->persist($color);
+        
+        $color2 = new Color();
+        $color2->setName('black');
+        $manager->persist($color2);
         
         
         // load Shape detail
         $shape = new Shape();
-        $shape->setName('square...');
-        
+        $shape->setName('square');
         $manager->persist($shape);
+        
+        $shape2 = new Shape();
+        $shape2->setName('rectangular');
+        $manager->persist($shape2);
         
         
         // load Product_Details
@@ -102,13 +140,25 @@ class AppFixtures extends Fixture
         $productDetail->setShape($shape);
         $productDetail->setQuantity(12);
         $productDetail->setPrice(2000);
-        
         $manager->persist($productDetail);
+        
+        $productDetail2 = new Product_Details();
+        $productDetail2->setManufacturer($manufacturer2);
+        $productDetail2->setModel($model2);
+        $productDetail2->setVersion($version2);
+        $productDetail2->setColor($color2);
+        $productDetail2->setShape($shape2);
+        $productDetail2->setQuantity(20);
+        $productDetail2->setPrice(1500);
+        $manager->persist($productDetail2);
         
         
         // load Category
         $category = new Category();
         $category->setName('Mobile Phone');
+        
+        $category2 = new Category();
+        $category2->setName('Personal Computer');
         
         // load Product
         $product = new Product();
@@ -117,12 +167,19 @@ class AppFixtures extends Fixture
         $product->setProductDetail($productDetail);
         $product->setCategory($category);
         $product->setStore($store);
-        
         $category->setProduct($product);
+        $manager->persist($product);
         $manager->persist($category);
         
-        $manager->persist($product);
-        
+        $product2 = new Product();
+        $product2->setName('Dell Inspiron 15 5000');
+        $product2->setDescription('New Dell PC');
+        $product2->setProductDetail($productDetail2);
+        $product2->setCategory($category2);
+        $product2->setStore($store);
+        $category2->setProduct($product2);
+        $manager->persist($product2);
+        $manager->persist($category2);
         
         $manager->flush();
     }
