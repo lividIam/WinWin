@@ -2,24 +2,24 @@
 
 namespace App\Controller;
 
+use App\Service\StoreChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class DefaultController extends AbstractController {
+class StoreController extends AbstractController {
    
     /**
-     * @Route("/", name="homepage")
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/store", name="store")
      */
-    public function homepage() 
+    public function store(StoreChecker $storeChecker) 
     {
-        return $this->render('default/homepage.html.twig', array());
-    }
-    
-    /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile()
-    {
-        return $this->render('user/profile.html.twig', array());
+        $stores = $storeChecker->getStoreObjects();
+        
+        return $this->render('store/store.html.twig', [
+            'stores' => $stores
+        ]);
     }
 }
+
