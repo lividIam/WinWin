@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\StoreChecker;
+use App\Service\StoreCheckerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,7 +13,7 @@ class StoreController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      * @Route("/store", name="store")
      */
-    public function store(StoreChecker $storeChecker) 
+    public function store(StoreCheckerService $storeChecker) 
     {
         $stores = $storeChecker->getStoreObjects();
         

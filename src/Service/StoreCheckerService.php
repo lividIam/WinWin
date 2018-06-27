@@ -5,7 +5,7 @@ namespace App\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
-class StoreChecker
+class StoreCheckerService
 {
     private $entityManager;
     
@@ -25,7 +25,14 @@ class StoreChecker
             
             $userId = $this->user->getId();
             
-//            $this->entityManager->
+            $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $userId));
+
+            if (count($stores)) {
+                
+                return $stores;
+            }
+            
+            return null;
         }
 
         return false;
