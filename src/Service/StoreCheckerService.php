@@ -20,21 +20,26 @@ class StoreCheckerService
     }
 
     public function getStoreObjects()
-    {
-        if ($this->user != null) {
-            
-            $userId = $this->user->getId();
-            
-            $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $userId));
-
-            if (count($stores)) {
-                
-                return $stores;
-            }
+    {  
+        $id = $this->getLoggedUserId();
+        
+        if($id == null) {
             
             return null;
         }
 
-        return false;
+        $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $id));
+
+        if (count($stores)) {
+
+            return $stores;
+        }
+
+        return null;
+    }
+    
+    public function getLoggedUserId()
+    {
+        return $this->user != null ? $this->user->getId() : null;
     }
 }
