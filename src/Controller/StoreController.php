@@ -13,13 +13,22 @@ class StoreController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      * @Route("/store", name="store")
      */
-    public function store(StoreCheckerService $storeChecker) 
+    public function storeAction(StoreCheckerService $storeChecker) 
     {
         $stores = $storeChecker->getStoreObjects();
         
-        return $this->render('store/store.html.twig', [
+        return $this->render('store/store.html.twig', array(
             'stores' => $stores
-        ]);
+        ));
+    }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/store/create", name="store_create")
+     */
+    public function createStoreAction(StoreCheckerService $storeChecker) 
+    {        
+        return $this->render('store/store_create.html.twig', array());
     }
 }
 

@@ -2,6 +2,10 @@
 
 {% block body %}
     <h1>Store page!</h1>
+
+{#    {% if stores is not null %}#}
+        {{ dump(stores) }}
+{#    {% endif %}#}
     
-    {{ dump(stores) }}
+    <a href="{{ path('store_create') }}">Create new store</a>
 {% endblock %}

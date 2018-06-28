@@ -23,19 +23,14 @@ class StoreCheckerService
     {  
         $id = $this->getLoggedUserId();
         
-        if($id == null) {
+        if ($id == null) {
             
             return null;
         }
 
         $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $id));
 
-        if (count($stores)) {
-
-            return $stores;
-        }
-
-        return null;
+        return count($stores) > 0 ? $stores : null;
     }
     
     public function getLoggedUserId()
