@@ -14,6 +14,7 @@ use App\Entity\Product\Details\Model;
 use App\Entity\Product\Details\Version;
 use App\Entity\Product\Details\Color;
 use App\Entity\Product\Details\Shape;
+use App\Utils\Slugger;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -63,6 +64,7 @@ class AppFixtures extends Fixture
         $store = new Store();
         $store->setName('Tech Land');
         // need logic for adding picture
+        $store->setSlug(Slugger::slugify('Tech Land'));
         $store->setLogo('logo.png');
         $store->setPhoneNumber('123642789');
         $store->setStreet('Sesameeee st.');
@@ -76,6 +78,7 @@ class AppFixtures extends Fixture
         $store2 = new Store();
         $store2->setName('Tech Landia');
         // need logic for adding picture
+        $store2->setSlug(Slugger::slugify('Tech Landia'));
         $store2->setLogo('logooooo.png');
         $store2->setPhoneNumber('123654789');
         $store2->setStreet('Sesame st.');

@@ -24,6 +24,11 @@ class Store extends BaseAddress
     private $name;
     
     /**
+     * @ORM\Column(type="string", length=35, unique=true)
+     */
+    private $slug;
+    
+    /**
      * @ORM\Column(name="logo", type="string", length=100)
      */
     private $logo;
@@ -77,6 +82,18 @@ class Store extends BaseAddress
     public function getName()
     {
         return $this->name;
+    }
+    
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
     
     public function setLogo($logo)

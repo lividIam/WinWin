@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Store\Store;
 use App\Form\StoreType;
 use App\Service\StoreCheckerService;
+use App\Utils\Slugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,7 @@ class StoreController extends AbstractController {
      * @Route("/store/create", name="store_create")
      * @Method({"GET", "POST"})
      */
-    public function createStoreAction(Request $request, StoreCheckerService $storeChecker) 
+    public function createStoreAction(Request $request, Slugger $slugger, StoreCheckerService $storeChecker) 
     {        
         $store = new Store();
         
@@ -41,6 +42,9 @@ class StoreController extends AbstractController {
         
         if ($form->isSubmitted() && $form->isValid()) {
             
+            $slug = $slugger->slugify($store->getName());
+            
+            $store->setSlug($slug);
             $store->setOwner($storeChecker->getLoggedUser());
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -58,8 +62,6 @@ class StoreController extends AbstractController {
             'form' => $form->createView()
         ));
     }
-    
-    
     
     /**
      * @Security("has_role('ROLE_USER')")
