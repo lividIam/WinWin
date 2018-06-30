@@ -13,6 +13,7 @@ Encore
      .addEntry('homepage', './assets/js/homepage.js')
      .addEntry('register', './assets/js/register.js')
      .addEntry('login', './assets/js/login.js')
+     .addEntry('store_create', './assets/js/store_create.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
     
     .createSharedEntry('vendor', [

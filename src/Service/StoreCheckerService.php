@@ -21,20 +21,20 @@ class StoreCheckerService
 
     public function getStoreObjects()
     {  
-        $id = $this->getLoggedUserId();
+        $user = $this->getLoggedUser();
         
-        if ($id == null) {
+        if ($user == null) {
             
             return null;
         }
 
-        $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $id));
+        $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $user));
 
         return count($stores) > 0 ? $stores : null;
     }
     
-    public function getLoggedUserId()
+    public function getLoggedUser()
     {
-        return $this->user != null ? $this->user->getId() : null;
+        return $this->user != null ? $this->user : null;
     }
 }

@@ -6,7 +6,6 @@ use App\Entity\Person\User;
 use App\Entity\Person\User_Address;
 use App\Entity\Person\Admin;
 use App\Entity\Store\Store;
-use App\Entity\Store\Store_Address;
 use App\Entity\Product\Product;
 use App\Entity\Product\Category;
 use App\Entity\Product\Product_Details;
@@ -65,6 +64,12 @@ class AppFixtures extends Fixture
         $store->setName('Tech Land');
         // need logic for adding picture
         $store->setLogo('logo.png');
+        $store->setPhoneNumber('123642789');
+        $store->setStreet('Sesameeee st.');
+        $store->setStreetNumber('1333');
+        $store->setBuildingNumber('2447');
+        $store->setPostCode('523:13');
+        $store->setCity('NewYorkCityyyyyyy');
         $store->setOwner($user);
         $manager->persist($store);
         
@@ -72,30 +77,14 @@ class AppFixtures extends Fixture
         $store2->setName('Tech Landia');
         // need logic for adding picture
         $store2->setLogo('logooooo.png');
+        $store2->setPhoneNumber('123654789');
+        $store2->setStreet('Sesame st.');
+        $store2->setStreetNumber('13');
+        $store2->setBuildingNumber('27');
+        $store2->setPostCode('527:23');
+        $store2->setCity('NewYorkCity');
         $store2->setOwner($user);
         $manager->persist($store2);
-        
-        
-        // load Store_Address
-        $storeAddress = new Store_Address();
-        $storeAddress->setStore($store);
-        $storeAddress->setPhoneNumber('123642789');
-        $storeAddress->setStreet('Sesameeee st.');
-        $storeAddress->setStreetNumber('1333');
-        $storeAddress->setBuildingNumber('2447');
-        $storeAddress->setPostCode('523:13');
-        $storeAddress->setCity('NewYorkCityyyyyyy');
-        $manager->persist($storeAddress);
-        
-        $storeAddress2 = new Store_Address();
-        $storeAddress2->setStore($store2);
-        $storeAddress2->setPhoneNumber('123654789');
-        $storeAddress2->setStreet('Sesame st.');
-        $storeAddress2->setStreetNumber('13');
-        $storeAddress2->setBuildingNumber('27');
-        $storeAddress2->setPostCode('527:23');
-        $storeAddress2->setCity('NewYorkCity');
-        $manager->persist($storeAddress2);
         
         
         // load Manufacturer detail

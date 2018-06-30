@@ -2,13 +2,14 @@
 
 namespace App\Entity\Store;
 
+use App\Entity\Inherited\BaseAddress;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="store")
  * @ORM\Entity(repositoryClass="App\Repository\StoreRepository")
  */
-class Store
+class Store extends BaseAddress
 {
     /**
      * @ORM\Column(type="integer")
@@ -32,11 +33,6 @@ class Store
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $owner;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="\App\Entity\Store\Store_Address", mappedBy="store", cascade={"persist"})
-     */
-    private $address;
     
     /**
      * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product", mappedBy="store", cascade={"persist"})
@@ -116,30 +112,6 @@ class Store
     public function getOwner()
     {
         return $this->owner;
-    }
-    
-    /**
-     * Set address to store
-     * 
-     * @param \App\Entity\Store\Store_Address $address
-     * @return \App\Entity\Store\Store
-     */
-    public function setAddress(\App\Entity\Store\Store_Address $address) 
-    {        
-        $address->setStore($this);
-        $this->address = $address;
-        
-        return $this;
-    }
-    
-    /**
-     * Get address
-     * 
-     * @return \App\Entity\Store\Store_Address
-     */
-    public function getAddress()
-    {        
-        return $this->address;
     }
     
     /**
