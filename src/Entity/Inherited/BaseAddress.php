@@ -9,42 +9,42 @@ class BaseAddress
     /**
      * @var int
      *
-     * @ORM\Column(name="phone_number", type="string", length=15)
+     * @ORM\Column(name="phone_number", type="string", length=15, nullable=true)
      */
     protected $phoneNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=50)
+     * @ORM\Column(name="street", type="string", length=50, nullable=true)
      */
     protected $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street_number", type="string", length=20)
+     * @ORM\Column(name="street_number", type="string", length=20, nullable=true)
      */
     protected $streetNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="building_number", type="string", length=10)
+     * @ORM\Column(name="building_number", type="string", length=10, nullable=true)
      */
     protected $buildingNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=50)
+     * @ORM\Column(name="city", type="string", length=50, nullable=true)
      */
     protected $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="post_code", type="string", length=10)
+     * @ORM\Column(name="post_code", type="string", length=10, nullable=true)
      */
     protected $postCode;
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Person;
 
+use App\Entity\Inherited\BaseAddress;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User extends BaseAddress implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -37,11 +38,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="email", type="string", length=30, unique=true)
      */
     private $email;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="\App\Entity\Person\User_Address", mappedBy="user", cascade={"persist"})
-     */
-    private $addresses;
     
     /**
      * @ORM\Column(type="array")
@@ -123,30 +119,6 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
-    }
-    
-    /**
-     * Add address to addresses collection
-     * 
-     * @param \App\Entity\Person\User_Address $address
-     * @return \App\Entity\Person\User
-     */
-    public function setAddress(\App\Entity\Product\Product $address)
-    {
-        $address->setUser($this);
-        $this->addresses[] = $address;
-        
-        return $this;
-    }
-    
-    /**
-     * Get addresses
-     * 
-     * @return \App\Entity\Person\User_Address
-     */
-    public function getAddresses()
-    {        
-        return $this->addresses;
     }
 
     public function getSalt()

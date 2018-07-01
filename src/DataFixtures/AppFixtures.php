@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Person\User;
-use App\Entity\Person\User_Address;
 use App\Entity\Person\Admin;
 use App\Entity\Store\Store;
 use App\Entity\Product\Product;
@@ -35,6 +34,12 @@ class AppFixtures extends Fixture
         $user->setName('Mariano');
         $user->setSurname('Italiano');
         $user->setEmail('mariano.italiano@gmail.com');
+//        $user->setPhoneNumber('999666333');
+//        $user->setStreet('Baltic st.');
+//        $user->setStreetNumber('19');
+//        $user->setBuildingNumber('7');
+//        $user->setPostCode('752:47');
+//        $user->setCity('SaltLakeCity');
         $userPassword = $this->encoder->encodePassword($user, 'lalalalala');
         $user->setPassword($userPassword);
         $manager->persist($user);
@@ -43,21 +48,15 @@ class AppFixtures extends Fixture
         $user2->setName('Ryszard');
         $user2->setSurname('Dab');
         $user2->setEmail('ryszard.dab@gmail.com');
+//        $user->setPhoneNumber('999666333');
+//        $user->setStreet('Atlantic st.');
+//        $user->setStreetNumber('21');
+//        $user->setBuildingNumber('3');
+//        $user->setPostCode('555:666');
+//        $user->setCity('BitterLakeCity');
         $userPassword2 = $this->encoder->encodePassword($user, 'lalalalala');
         $user2->setPassword($userPassword2);
-        $manager->persist($user2);
-        
-        
-        // load User_Address
-        $userAddress = new User_Address();
-        $userAddress->setUser($user);
-        $userAddress->setPhoneNumber('999666333');
-        $userAddress->setStreet('Baltic st.');
-        $userAddress->setStreetNumber('19');
-        $userAddress->setBuildingNumber('7');
-        $userAddress->setPostCode('752:47');
-        $userAddress->setCity('SaltLakeCity');
-        $manager->persist($userAddress);
+        $manager->persist($user2);        
         
         
         // load Admin
