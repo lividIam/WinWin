@@ -59,6 +59,8 @@ class SecurityControllerTest extends WebTestCase
 
         $this->client->submit($form);
         
+        $this->client->followRedirect();
+        
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Login Page', $this->client->getResponse()->getContent());
     }

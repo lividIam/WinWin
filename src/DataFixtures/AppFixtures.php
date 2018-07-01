@@ -39,6 +39,14 @@ class AppFixtures extends Fixture
         $user->setPassword($userPassword);
         $manager->persist($user);
         
+        $user2 = new User();
+        $user2->setName('Ryszard');
+        $user2->setSurname('Dab');
+        $user2->setEmail('ryszard.dab@gmail.com');
+        $userPassword2 = $this->encoder->encodePassword($user, 'lalalalala');
+        $user2->setPassword($userPassword2);
+        $manager->persist($user2);
+        
         
         // load User_Address
         $userAddress = new User_Address();
@@ -88,6 +96,20 @@ class AppFixtures extends Fixture
         $store2->setCity('NewYorkCity');
         $store2->setOwner($user);
         $manager->persist($store2);
+        
+        $store3 = new Store();
+        $store3->setName('Loco Land');
+        // need logic for adding picture
+        $store3->setSlug(Slugger::slugify('Loco Land'));
+        $store3->setLogo('logo-loco.png');
+        $store3->setPhoneNumber('123642789');
+        $store3->setStreet('Turkusowa st.');
+        $store3->setStreetNumber('43434');
+        $store3->setBuildingNumber('555');
+        $store3->setPostCode('432:54');
+        $store3->setCity('Nibylandia');
+        $store3->setOwner($user2);
+        $manager->persist($store3);
         
         
         // load Manufacturer detail

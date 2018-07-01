@@ -28,7 +28,9 @@ class StoreCheckerService
             return null;
         }
 
-        $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array('owner' => $user));
+        $stores = $this->entityManager->getRepository('\App\Entity\Store\Store')->findBy(array(
+            'owner' => $user
+        ));
 
         return count($stores) > 0 ? $stores : null;
     }

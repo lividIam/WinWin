@@ -51,10 +51,8 @@ class StoreController extends AbstractController {
             $entityManager->persist($store);
             $entityManager->flush();
             
-//            return $this->render('user/profile.html.twig', array());
-            
-            return $this->render('store/store_create.html.twig', array(
-                'form' => $form->createView()
+            return $this->redirectToRoute('store_dashboard', array(
+                'slug' => $slug
             ));
         }
         
@@ -65,14 +63,43 @@ class StoreController extends AbstractController {
     
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/store/dashboard/{name}", name="store_dashboard")
+     * @Route("/store/dashboard/{slug}", name="store_dashboard")
+     * @Method({"GET", "POST"})
      */
-    public function dashboardStoreAction(StoreCheckerService $storeChecker) 
+    public function dashboardStoreAction(StoreCheckerService $storeChecker, $slug) 
     {
-        $stores = $storeChecker->getStoreObjects();
+        $user = $storeChecker->getLoggedUser();
         
-        return $this->render('store/store.html.twig', array(
-            'stores' => $stores
+        if ($user) {
+            
+            $store = $this->getDoctrine()->getRepository('\App\Entity\Store\Store')->findOneBy(array(
+                'slug' => $slug
+            ));
+
+            if ($store->getOwner() == $user) {
+
+                return $this->render('store/store_dashboard.html.twig', array(
+                    'store' => $store
+                ));
+                
+            }
+                
+            return $this->redirectToRoute('store_homepage', array(
+                'slug'  => $slug,
+                'store' => $store
+            ));
+        }
+    }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/store/{slug}", name="store_homepage")
+     * @Method({"GET", "POST"})
+     */
+    public function homepageStoreAction() 
+    {
+        return $this->render('store/store_homepage.html.twig', array(
+//            'store' => $store
         ));
     }
 }
