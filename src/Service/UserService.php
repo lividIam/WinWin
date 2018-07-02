@@ -2,25 +2,14 @@
 
 namespace App\Service;
 
+use App\Service\Base\BaseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
-class UserService
+class UserService extends BaseService
 {
-    private $entityManager;
-    
-    private $user;
-
-
-
     public function __construct(EntityManagerInterface $entityManager, Security $security) 
     {
-        $this->entityManager = $entityManager;
-        $this->user = $security->getUser();
-    }
-    
-    public function getLoggedUser()
-    {
-        return $this->user != null ? $this->user : null;
+        parent::__construct($entityManager, $security);
     }
 }
