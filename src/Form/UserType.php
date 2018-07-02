@@ -23,6 +23,12 @@ class UserType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class
             ])
+            ->add('phoneNumber', TextType::class)
+            ->add('street', TextType::class)
+            ->add('streetNumber', TextType::class)
+            ->add('buildingNumber', TextType::class)
+            ->add('city', TextType::class)
+            ->add('postCode', TextType::class)
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success pull-right'

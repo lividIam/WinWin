@@ -3,5 +3,19 @@
 {% block body %}
     <h1>Profile address page!</h1>
     
+    {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
+        {{ form_widget(form.name, { 'attr': {'class': 'hide'} }) }}
+        {{ form_widget(form.surname, { 'attr': {'class': 'hide'} }) }}
+        {{ form_widget(form.email, { 'attr': {'class': 'hide'} }) }}
+        {{ form_widget(form.password, { 'attr': {'class': 'hide'} }) }}
+        {{ form_row(form.phoneNumber) }}
+        {{ form_row(form.street) }}
+        {{ form_row(form.streetNumber) }}
+        {{ form_row(form.buildingNumber) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.postCode) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+    
     <a href="{{ path('user_profile') }}">Back to profile page</a>
 {% endblock %}
