@@ -186,9 +186,11 @@ class AppFixtures extends Fixture
         // load Category
         $category = new Category();
         $category->setName('Mobile Phone');
+        $category->setSlug(Slugger::slugify('Mobile Phone'));
         
         $category2 = new Category();
         $category2->setName('Personal Computer');
+        $category2->setSlug(Slugger::slugify('Personal Computer'));
         
         // load Product
         $product = new Product();

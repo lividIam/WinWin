@@ -29,6 +29,22 @@ class Category
     private $name;
     
     /**
+     * @ORM\Column(type="string", length=35, unique=true)
+     */
+    private $slug;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    private $kids;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="kids")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+    
+    /**
      * @ORM\OneToMany(targetEntity="\App\Entity\Product\Product", mappedBy="category", cascade={"persist"})
      */
     private $products;
@@ -37,6 +53,7 @@ class Category
     
     public function __construct() 
     {
+        $this->kids = new \Doctrine\Common\Collections\ArrayCollection();
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -55,6 +72,65 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+    
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    /**
+     * Add kid to category kids collection
+     * 
+     * @param \App\Entity\Product\Category $category
+     * @return \App\Entity\Product\Category
+     */
+    public function setKid(\App\Entity\Product\Category $category)
+    {
+        $category->setParent($this);
+        $this->kids[] = $category;
+        
+        return $this;
+    }
+    
+    /**
+     * Get kids
+     * 
+     * @return \App\Entity\Product\Category
+     */
+    public function getKids()
+    {        
+        return $this->kids;
+    }
+    
+    /**
+     * Set parent to category
+     * 
+     * @param \App\Entity\Product\Category $category
+     * @return \App\Entity\Product\Category
+     */
+    public function setParent(\App\Entity\Product\Category $category = null) 
+    {        
+        $this->parent = $category;
+        
+        return $this;
+    }
+    
+    /**
+     * Get parent
+     * 
+     * @return \App\Entity\Product\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
     
     /**
