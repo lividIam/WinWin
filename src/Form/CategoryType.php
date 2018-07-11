@@ -15,6 +15,14 @@ class CategoryType extends AbstractType
     {        
         $builder
             ->add('name', TextType::class)
+            ->add('kids', null, array(
+                'multiple' => false,
+                'expanded' => false
+            ))
+            ->add('parent', null, array(
+                'multiple' => false,
+                'expanded' => false
+            ))
             ->add('submit', SubmitType::class)
         ;
     }

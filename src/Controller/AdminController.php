@@ -50,17 +50,37 @@ class AdminController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($category);
                 $entityManager->flush();
-                
-                
 
-//                return $this->redirectToRoute('store_dashboard', array(
-//                    'slug' => $slug
-//                ));
+                return $this->redirectToRoute('category_list', array());
             }
         }
         
         return $this->render('admin/category_create.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+    
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/category/list", name="category_list")
+     * @Method({"GET", "POST"})
+     */
+    public function listCategory()
+    {
+        $categories = $this->getDoctrine()->getRepository('\App\Entity\Product\Category')->findAll();
+        
+        return $this->render('admin/category_list.html.twig', array(
+            'categories' => $categories
+        ));
+    }
+    
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/category/{slug}", name="category")
+     * @Method({"GET", "POST"})
+     */
+    public function category()
+    {
+        return $this->render('admin/category.html.twig', array());
     }
 }

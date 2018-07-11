@@ -89,13 +89,15 @@ class Category
     /**
      * Add kid to category kids collection
      * 
-     * @param \App\Entity\Product\Category $category
-     * @return \App\Entity\Product\Category
+     * @param type|NULL $category
+     * @return $this
      */
-    public function setKid(\App\Entity\Product\Category $category)
+    public function setKids($category)
     {
-        $category->setParent($this);
-        $this->kids[] = $category;
+        if ($category) {
+            $category->setParent($this);
+            $this->kids[] = $category;
+        }
         
         return $this;
     }

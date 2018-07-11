@@ -3,8 +3,10 @@
 {% block body %}
     <h1>Category create page!</h1>
     
-    {{ form_start(form) }}
+    {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
         {{ form_row(form.name) }}
+        {{ form_widget(form.kids, { 'attr': {'class': 'hide'} }) }}
+        {{ form_widget(form.parent, { 'attr': {'class': 'hide'} }) }}
         {{ form_row(form.submit) }}
     {{ form_end(form) }}
 {% endblock %}
