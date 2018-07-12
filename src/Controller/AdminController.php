@@ -79,8 +79,38 @@ class AdminController extends AbstractController
      * @Route("/category/{slug}", name="category")
      * @Method({"GET", "POST"})
      */
-    public function category()
+    public function category(Request $request, $slug)
     {
-        return $this->render('admin/category.html.twig', array());
+        $category = $this->getDoctrine()->getRepository('\App\Entity\Product\Category')->findOneBy(array(
+                'slug' => $slug
+            ));
+        
+        // todo: if category exsists
+        
+        $form = $this->createForm(CategoryType::class, $category);
+        
+        if ($request->isMethod('POST')) {
+            
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+                var_dump('yolo');die;
+
+//                $slug = $slugger->slugify($category->getName());
+//
+//                $category->setSlug($slug);
+//
+//                $entityManager = $this->getDoctrine()->getManager();
+//                $entityManager->persist($category);
+//                $entityManager->flush();
+//
+                return $this->redirectToRoute('category_list', array());
+            }
+        }
+        
+        return $this->render('admin/category.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

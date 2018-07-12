@@ -3,4 +3,10 @@
 {% block body %}
     <h1>Category page!</h1>
     
+    {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.kids) }}
+        {{ form_row(form.parent) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
 {% endblock %}
