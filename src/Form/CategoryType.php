@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Form\EventListener\AddKidsAndParentFieldsSubscriber;
+use App\Form\EventListener\AddParentFieldSubscriber;
 
 class CategoryType extends AbstractType
 {
@@ -19,7 +19,7 @@ class CategoryType extends AbstractType
             ->add('submit', SubmitType::class)
         ;
         
-        $builder->addEventSubscriber(new AddKidsAndParentFieldsSubscriber());
+        $builder->addEventSubscriber(new AddParentFieldSubscriber());
     }
 
     public function configureOptions(OptionsResolver $resolver)

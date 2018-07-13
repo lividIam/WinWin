@@ -95,16 +95,12 @@ class AdminController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 
-                var_dump('yolo');die;
-
-//                $slug = $slugger->slugify($category->getName());
-//
-//                $category->setSlug($slug);
-//
-//                $entityManager = $this->getDoctrine()->getManager();
-//                $entityManager->persist($category);
-//                $entityManager->flush();
-//
+                $category->setParent($form['parent']->getData());
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($category);
+                $entityManager->flush();
+                
                 return $this->redirectToRoute('category_list', array());
             }
         }

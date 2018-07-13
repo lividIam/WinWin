@@ -9,35 +9,33 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-class AddKidsAndParentFieldsSubscriber implements EventSubscriberInterface
+class AddParentFieldSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        // Tells the dispatcher that you want to listen on the form.pre_set_data
-        // event and that the preSetData method should be called.
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
     public function preSetData(FormEvent $event)
     {
         $category = $event->getData();
-        $form = $event->getForm();
+        $form = $event->getForm();  
+        
+        $slug = $category->getSlug();
         
         if (NULL != $category->getName()) {
             
-            $form->add('kids', EntityType::class, array(
-                'class' => Category::class,
-                'multiple' => false,
-                'expanded' => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-                },
-            ));
             $form->add('parent', EntityType::class, array(
                 'class' => Category::class,
                 'multiple' => false,
-                'expanded' => false
+                'expanded' => false,
+                'query_builder' => function (EntityRepository $er) use ($slug) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.slug != :slug')
+                        ->orderBy('c.name', 'ASC')
+                        ->setParameter('slug', $slug)
+                    ;
+                },
             ));
         }
     }
