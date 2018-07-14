@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Store\Store;
+use App\Entity\Product\Product;
 use App\Form\StoreType;
+use App\Form\ProductType;
 use App\Service\StoreCheckerService;
 use App\Utils\Slugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,7 +110,7 @@ class StoreController extends AbstractController {
      * @Route("/store/dashboard/{slug}/product/add", name="store_dashboard_product_add")
      * @Method({"GET", "POST"})
      */
-    public function dashboardStoreProductAdd(StoreCheckerService $storeChecker, $slug) 
+    public function dashboardStoreProductAdd(Request $request, StoreCheckerService $storeChecker, $slug) 
     {
         $user = $storeChecker->getLoggedUser();
         
@@ -119,10 +121,30 @@ class StoreController extends AbstractController {
             ));
 
             if ($store->getOwner() == $user) {
+                
+                $product = new Product();
+        
+                $form = $this->createForm(ProductType::class, $product);
 
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    var_dump('suka blyat');die;
+                    
+//                    $entityManager = $this->getDoctrine()->getManager();
+//                    $entityManager->persist($product);
+//                    $entityManager->flush();
+                    
+//                    * waiting to be added
+//                    return $this->redirectToRoute('store_dashboard_product', array(
+//                        'slug' => $productSlug
+//                    ));
+                }
+        
                 return $this->render('store/store_dashboard_product_add.html.twig', array(
                     'slug'  => $slug,
-                    'store' => $store
+                    'form'  => $form->createView()
                 ));
             }
                 
