@@ -9,3 +9,14 @@
     
     <a href="{{ path('store_dashboard', { 'slug': slug }) }}">Back to store main page</a>
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/manifest.js') }}"></script>
+    <script src="{{ asset('build/vendor.js') }}"></script>
+    
+    {# common scripts and css #}
+    <script src="{{ asset('build/app.js') }}"></script>
+    
+    {# page specific scripts #}
+    <script src="{{ asset('build/store_dashboard_product_add.js') }}"></script>
+{% endblock %}

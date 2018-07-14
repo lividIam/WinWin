@@ -14,6 +14,7 @@ Encore
      .addEntry('register', './assets/js/register.js')
      .addEntry('login', './assets/js/login.js')
      .addEntry('store_create', './assets/js/store_create.js')
+     .addEntry('store_dashboard_product_add', './assets/js/store_dashboard_product_add.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
     
     .createSharedEntry('vendor', [
