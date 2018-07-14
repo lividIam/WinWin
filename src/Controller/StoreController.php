@@ -18,7 +18,7 @@ class StoreController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      * @Route("/store", name="store")
      */
-    public function storeAction(StoreCheckerService $storeChecker) 
+    public function store(StoreCheckerService $storeChecker) 
     {
         $stores = $storeChecker->getStoreObjects();
         
@@ -32,7 +32,7 @@ class StoreController extends AbstractController {
      * @Route("/store/create", name="store_create")
      * @Method({"GET", "POST"})
      */
-    public function createStoreAction(Request $request, Slugger $slugger, StoreCheckerService $storeChecker) 
+    public function createStore(Request $request, Slugger $slugger, StoreCheckerService $storeChecker) 
     {        
         $store = new Store();
         
@@ -66,7 +66,7 @@ class StoreController extends AbstractController {
      * @Route("/store/dashboard/{slug}", name="store_dashboard")
      * @Method({"GET", "POST"})
      */
-    public function dashboardStoreAction(StoreCheckerService $storeChecker, $slug) 
+    public function dashboardStore(StoreCheckerService $storeChecker, $slug) 
     {
         $user = $storeChecker->getLoggedUser();
         
@@ -96,10 +96,37 @@ class StoreController extends AbstractController {
      * @Route("/store/{slug}", name="store_homepage")
      * @Method({"GET", "POST"})
      */
-    public function homepageStoreAction() 
+    public function homepageStore() 
     {
         return $this->render('store/store_homepage.html.twig', array(
 //            'store' => $store
         ));
+    }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/store/dashboard/{slug}/product/add", name="store_dashboard_product_add")
+     * @Method({"GET", "POST"})
+     */
+    public function dashboardStoreProductAdd(StoreCheckerService $storeChecker, $slug) 
+    {
+        $user = $storeChecker->getLoggedUser();
+        
+        if ($user) {
+            
+            $store = $this->getDoctrine()->getRepository('\App\Entity\Store\Store')->findOneBy(array(
+                'slug' => $slug
+            ));
+
+            if ($store->getOwner() == $user) {
+
+                return $this->render('store/store_dashboard_product_add.html.twig', array(
+                    'slug'  => $slug,
+                    'store' => $store
+                ));
+            }
+                
+            return $this->redirectToRoute('store');
+        }
     }
 }

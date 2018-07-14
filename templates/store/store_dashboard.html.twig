@@ -3,5 +3,11 @@
 {% block body %}
     <h1>Store dashboard!</h1>
     
-    <a href="{{ path('store') }}">Back to store main page</a>
+    <ul>
+        <a href="{{ path('store_dashboard_product_add', { 'slug': store.slug }) }}">Add product</a>
+    </ul>
+    <ul>
+        <a href="{{ path('store') }}">Back to store main page</a>
+    </ul>
+       
 {% endblock %}
