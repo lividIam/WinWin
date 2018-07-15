@@ -4,7 +4,9 @@
     <h1>Product add!</h1>
     
     {{ form_start(form) }}
-        {{ form_row(form.category) }}
+        <div id="category">
+            {{ form_row(form.category) }}
+        </div>
     {{ form_end(form) }}
     
     <a href="{{ path('store_dashboard', { 'slug': slug }) }}">Back to store main page</a>
@@ -17,6 +19,11 @@
     {# common scripts and css #}
     <script src="{{ asset('build/app.js') }}"></script>
     
-    {# page specific scripts #}
+    {# page specific script and css #}
     <script src="{{ asset('build/store_dashboard_product_add.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/product_add_style.css') }}"/>
 {% endblock %}
