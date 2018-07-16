@@ -1,15 +1,37 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>Product add!</h1>
-    
-    {{ form_start(form) }}
-        <div id="category">
-            {{ form_row(form.category) }}
+    <div class="container">
+        <h1>Product add!</h1>
+
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            <div id="category">
+                <label>Category</label>
+                <button id="product_category" type="button">Choose category</button>
+            </div>
+        {{ form_end(form) }}
+
+        <a href="{{ path('store_dashboard', { 'slug': slug }) }}">Back to store main page</a>
+    </div>
+        
+    {#  POPUP WINDOW (hidden in default) #}
+    <div id="popup-wrapper">
+      <div id="popup-content" class="animate">
+
+        <div id="title-container">
+        {# <span id="close" title="Close PopUp">&times;</span> #}
+          <h1 style="text-align:center">Choose category</h1>
         </div>
-    {{ form_end(form) }}
-    
-    <a href="{{ path('store_dashboard', { 'slug': slug }) }}">Back to store main page</a>
+
+        <h1>Yolo</h1>
+        <h2>Yolo</h2>
+        <h3>Yolo</h3>
+        <h4>Yolo</h4>
+
+      </div>
+    </div>
+    {#  POPUP WINDOW END  #}
 {% endblock %}
 
 {% block javascripts %}
