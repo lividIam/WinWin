@@ -14,16 +14,17 @@
     background-color: #fefefe;
     margin: 4% auto 15% auto;
     border: 1px solid #888;
-    width: 70%;
-    height: 50%;
-    padding-bottom: 30px;
+    width: 25%;
+    height: 70%;
+    padding: 30px 20px 30px 20px;
+    border-radius: 9px;
 }
 
-#title-container {
+/*#title-container {
     text-align: center;
     margin: 24px 0 12px 0;
     position: relative;
-}
+}*/
 
 #close {
     position: absolute;
