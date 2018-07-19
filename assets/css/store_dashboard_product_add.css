@@ -41,3 +41,12 @@
     from {transform: scale(0)} 
     to {transform: scale(1)}
 }
+
+#summary {
+    width: 80%;
+    height: 30px;
+    padding: 10px 15px 0px 15px;
+    font-weight: bold;
+    word-spacing: 9px;
+    color: green;
+}

@@ -9,17 +9,9 @@ $(document).ready(function() {
         // show wrapper
         $('#popup-wrapper').css('visibility', 'visible');
         
-        
-        
-        
-        // add div on top of accordion's cards with summary of currently chosen subcategories !!!!!
-        
-        
-        
-        
         // add first element to it
-        var element = pasteAccordionCardElement(1, params);
-        $("#accordion").append(element);
+        var categoryElement = pasteAccordionCardElement(1, params);
+        $("#accordion").append(categoryElement);
         
         // open the element
         $("button[data-target='#collapse_1']").removeClass('collapsed').attr('aria-expanded', 'true');
@@ -31,11 +23,7 @@ $(document).ready(function() {
         // if someone clicks beyond popup-content
         if (event.target === document.getElementById('popup-wrapper')) {
             
-            // hide wrapper
-            $('#popup-wrapper').css('visibility', 'hidden');
-            
-            // delete all elements in accordion
-            $("#accordion").empty();
+            shutDownPopupContent();
         }
     });
     
@@ -49,12 +37,16 @@ $(document).ready(function() {
     $(document).on('click', "#collapse_1 li", function(event) {
                 
         handleAccordionCardClickEvent(1, event, params);
+        
+        handleSummaryElementAddText();
     });
     
     // if someone clicks on one of the second list, items
     $(document).on('click', "#collapse_2 li", function(event) {
         
         handleAccordionCardClickEvent(2, event, params);
+        
+        handleSummaryElementAddText();
     });
     
     // if someone clicks on one of the third list, items
@@ -63,6 +55,7 @@ $(document).ready(function() {
         // if color is already set, disable it
         $("#collapse_3 li").each(function() {
             if($(this).attr('data-checked') === 'true') {
+                
                 $(this).css('background-color', '').removeAttr('data-checked');
             }
         });
@@ -72,9 +65,16 @@ $(document).ready(function() {
         $("button[data-target='#collapse_3']").addClass('collapsed').attr('aria-expanded', 'false');
         $("#collapse_3").removeClass('show');
         
-        // add submit button
-        var button = pasteSubmitButton();
-        $("#accordion").append(button);
+        handleSummaryElementAddText();
+                
+        var button = document.getElementById('submit_chosen_category');
+        
+        if (button === null) {
+            
+            // add submit button
+            var button = pasteSubmitButton();
+            $("#accordion").append(button);
+        }
     });
     
     // if someone clicks on the submit button appended after choosing category
@@ -87,12 +87,8 @@ $(document).ready(function() {
         
         
         
-        
-        // hide wrapper
-        $('#popup-wrapper').css('visibility', 'hidden');
 
-        // delete all elements in accordion
-        $("#accordion").empty();
+        shutDownPopupContent();
     });
     
     // handle appending next accordion card, changing list tail color, card opening and closing
@@ -128,6 +124,55 @@ $(document).ready(function() {
         
         $(event.target).css('background-color', 'aqua').attr('data-checked', 'true');
         $("div#heading_" + index + " button[data-target='#collapse_" + index + "']").html(event.target.innerHTML);
+    }
+    
+    // create element if not exists, fill it with chosen category text
+    function handleSummaryElementAddText() {
+        
+        var element =  document.getElementById('summary');
+        
+        if (element === null) { 
+            
+            // remove padding on the top
+            $("#popup-content").css('padding', '0px 20px 30px 20px');
+            
+            // add summary element
+            var element = pasteSummaryElement();
+            $("#popup-content").prepend(element);
+        }
+        
+        // fill element with category text
+        var text = addTextToSummaryElement();
+        $("#summary").html(text);
+    }
+    
+    // create summary element
+    function pasteSummaryElement() {
+        
+        var div = document.createElement('div');
+        div.setAttribute('id', 'summary');
+        
+        return div;
+    }
+    
+    // iterate throug all lists elements and create one string out of them
+    function addTextToSummaryElement() {
+        
+        var text = '';
+        
+        $("li[data-checked='true']").each(function(){
+            
+            if (text !== '') {
+                
+                text += ' < ' + $(this).html();
+                
+            } else {
+                
+                text += $(this).html();
+            }            
+        });
+        
+        return text;
     }
     
     // creating and pasting new accordion card element
@@ -197,5 +242,21 @@ $(document).ready(function() {
         button.innerHTML = "Submit";
         
         return button;
+    }
+    
+    // clear everything up after closing popup content
+    function shutDownPopupContent() {
+        
+        // hide wrapper
+        $('#popup-wrapper').css('visibility', 'hidden');
+
+        // restore default padding
+        $("#popup-content").css('padding', '30px 20px 30px 20px');
+
+        // delete all elements in accordion
+        $("#accordion").empty();
+        
+        // delete summary element
+        $('#summary').remove();
     }
 });
