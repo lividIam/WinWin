@@ -158,19 +158,22 @@ $(document).ready(function() {
     // iterate throug all lists elements and create one string out of them
     function addTextToSummaryElement() {
         
+        var categories = getChosenCategories();
+        var categoriesLength = categories.length;
+        
         var text = '';
         
-        $("li[data-checked='true']").each(function(){
+        for (var i = 0; i < categoriesLength; i++) {
             
-            if (text !== '') {
+            if (i !== 0) {
                 
-                text += ' < ' + $(this).html();
+                text += ' < ' + categories[i];
                 
             } else {
                 
-                text += $(this).html();
+                text += categories[i];
             }            
-        });
+        }
         
         return text;
     }
@@ -258,5 +261,17 @@ $(document).ready(function() {
         
         // delete summary element
         $('#summary').remove();
+    }
+    
+    function getChosenCategories() {
+        
+        var categories = new Array();
+        
+        $("li[data-checked='true']").each(function(){
+            
+            categories.push($(this).html());
+        });
+        
+        return categories;
     }
 });
