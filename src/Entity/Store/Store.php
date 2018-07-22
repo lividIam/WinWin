@@ -202,4 +202,9 @@ class Store extends BaseAddress
     {
         return $this->offers;
     }
+    
+    public function __toString() 
+    {
+        return $this->getName();
+    }
 }

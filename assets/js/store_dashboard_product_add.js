@@ -1,3 +1,7 @@
+let routes = require('../../web/js/fos_js_routes.json');
+import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
+Routing.setRoutingData(routes);
+
 $(document).ready(function() {
     
     // dummpy data (ajax responses in a future)
@@ -5,6 +9,8 @@ $(document).ready(function() {
     
     // if someone clicks on "Choose category" button
     $("#product_category").click(function() {
+        
+        ajaxCall();
         
         // show wrapper
         $('#popup-wrapper').css('visibility', 'visible');
@@ -273,5 +279,62 @@ $(document).ready(function() {
         });
         
         return categories;
+    }
+    
+    function getLastChosenCategory() {
+        
+        var categories = getChosenCategories();
+        
+        return categories.length === 0 ? 'NULL' : categories[categories.length - 1];
+    }
+    
+    function ajaxCall() {
+        
+        new Promise(function(resolve, reject){
+            
+            let url = Routing.generate('category_get', {'categoryName': getLastChosenCategory()});
+            let xhr = new XMLHttpRequest();
+            
+            xhr.open("GET", url);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.addEventListener('load', function(event)
+            {
+                if(this.readyState === 4 && this.status === 200 && this.statusText === "OK") {
+                    
+                    resolve(JSON.parse(this.responseText));
+                    
+                } else {
+                    
+                    reject(JSON.parse(this.responseText));
+                }
+            });      
+            
+            xhr.send();
+            
+            
+//            var route = Routing.generate('category_get', {'categoryName': getLastChosenCategory()});
+//        
+//            $.ajax({
+//                url: route,
+//                type: "GET",
+//                dataType: "json",
+//                data: {},
+//                async: true,
+//                success: function (data)
+//                {
+//                    if(this.readyState === 4 && this.status === 200 && this.statusText === "OK") 
+//                    {
+//                        console.log(this.responseText);
+//                    }
+//                }
+//            });
+        })
+            .then((response) => {
+                // display categories
+            })
+            .catch((error) => {
+                // show error message
+            })
+        ;
     }
 });

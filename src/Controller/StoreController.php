@@ -10,7 +10,11 @@ use App\Service\StoreCheckerService;
 use App\Utils\Slugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -115,7 +119,7 @@ class StoreController extends AbstractController {
         $user = $storeChecker->getLoggedUser();
         
         if ($user) {
-            
+
             $store = $this->getDoctrine()->getRepository('\App\Entity\Store\Store')->findOneBy(array(
                 'slug' => $slug
             ));
@@ -150,5 +154,53 @@ class StoreController extends AbstractController {
                 
             return $this->redirectToRoute('store');
         }
+    }
+    
+    /**
+     * @Route("/category/get/{categoryName}", name="category_get", options={"expose"=true})
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
+    public function getCategoryForProductAdd(Request $request) {
+        
+        if ($request->isXmlHttpRequest()) {
+            
+            $category = $request->request->get('categoryName');
+                
+            $em = $this->getDoctrine()->getManager();
+
+            $categories = $em->getRepository('\App\Entity\Product\Category')->findBy(array(
+                'parent' => $category
+            ));
+
+            if ($categories) {
+
+                $encoders = array(
+                    new JsonEncoder()
+                );
+                $normalizers = array(
+                    // After composer require symfony/serializer I found few '?' (question mark) in AbstractObjectNormalizer(). 
+                    // Might be worth it to look there in the future!
+                    (new ObjectNormalizer())
+                        ->setCircularReferenceHandler(function($object)
+                        {
+                            return $object->__toString();
+                        })
+                );
+                // After composer require symfony/serializer I found '?' (question mark) in Serializer.php getNormalizer
+                // methods declaration. Might be worth it to look there in the future!
+                $serializer = new Serializer($normalizers, $encoders);
+                
+                $data = $serializer->serialize($categories, 'json');
+                
+                return new JsonResponse($data, 200, array(), true);
+            }
+        }
+        
+        return new JsonResponse(array(
+            'type'    => 'error',
+            'message' => 'AJAX only'            
+        ));
     }
 }

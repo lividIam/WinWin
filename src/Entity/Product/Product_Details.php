@@ -264,4 +264,9 @@ class Product_Details
     {
         return $this->product;
     }
+    
+    public function __toString() 
+    {  
+        return $this->getManufacturer()->getName();
+    }
 }

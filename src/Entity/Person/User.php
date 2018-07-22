@@ -207,4 +207,9 @@ class User extends BaseAddress implements UserInterface, \Serializable
     {
         return $this->orders;
     }
+    
+    public function __toString() 
+    {
+        return $this->getName();
+    }
 }
